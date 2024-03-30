@@ -30,17 +30,20 @@ public struct City: Identifiable {
     }
 }
 
-enum CityDescription: String {
-    case tokyo = "日本の首都"
-    case osaka = "日本の第2の都市"
-}
+// 都市のデータを管理するためのサンプルデータ
+let cities = [
+    CityInfo(name: "Tokyo", description: "東京は日本の首都で、世界最大の都市の一つです。...", imageName: "tokyo", basicInfo: BasicInfo(capitalLocation: "東京", population: 14105098, area: 2191), populationTrendData: tokyoLineData),
+    CityInfo(name: "Osaka", description: "日本の第2の都市です。...", imageName: "osaka", basicInfo: BasicInfo(capitalLocation: "大阪", population: 8768019, area: 225), populationTrendData: osakaLineData),
+]
 
 // 都市の情報を格納するための構造体
-struct CityInfo {
+struct CityInfo: Hashable {
     let name: String
     let description: String
     let imageName: String
-
+    let basicInfo: BasicInfo
+    let populationTrendData: [PopulationTrendsLineData]
+    
     // 画像を取得するためのcomputed property
     var image: Image {
         Image(imageName)
@@ -51,10 +54,16 @@ struct CityInfo {
     }
 }
 
-// 都市のデータを管理するためのサンプルデータ
-struct CitiesData {
-    static let cities = [
-        CityInfo(name: "Tokyo", description: "東京は日本の首都で、世界最大の都市の一つです。...", imageName: "tokyo"),
-        CityInfo(name: "Osaka", description: "日本の第2の都市です。...", imageName: "osaka"),
-    ]
+struct BasicInfo: Equatable, Hashable {
+    var capitalLocation: String
+    var population: Int
+    var area: Double
+    var populationDensity: Double { Double(population) / area }
+}
+
+enum CityDetailInfoMenu: String, Hashable, CaseIterable {
+    case basicInfo = "基本情報"
+    case populationTrends = "人口推移"
+    case touristSpot = "観光地"
+    case inductory = "産業"
 }

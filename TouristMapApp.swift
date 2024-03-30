@@ -32,8 +32,8 @@ struct TouristMapApp: App {
         .windowStyle(.plain)
         .windowResizability(.contentSize)
         
-        WindowGroup(id: ViewID.detailViewId, for: String.self) { value in
-            DetailView(cityName: value.wrappedValue!)
+        WindowGroup(id: ViewID.cityViewId, for: String.self) { value in
+            CityView(cityName: value.wrappedValue!)
         }
         .defaultSize(CGSize(width: 600, height: 400))
 
@@ -47,7 +47,7 @@ struct TouristMapApp: App {
 
 
 struct ViewID {
-    static let detailViewId = "DetailViewId"
+    static let cityViewId = "CityViewId"
     static let touristMap = "TouristMapId"
     static let immersive = "ImmersiveSpaceId"
 }

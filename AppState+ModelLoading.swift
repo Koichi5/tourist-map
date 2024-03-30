@@ -48,48 +48,45 @@ extension AppState {
         logger.info("Starting load from Reality Composer Pro Project.")
         finishedStartingUp()
         await withTaskGroup(of: LoadResult.self) { taskGroup in
-            loadMapPinModels(taskGroup: &taskGroup)
             loadMapModel(taskGroup: &taskGroup)
+            loadMapPinModels(taskGroup: &taskGroup)
             for await result in taskGroup {
                 if pins.first(where: { $0.key.rawValue == result.key }) != nil {
-                    processLoadedPinModels(result: result)
+                    addMapPinEntitiesToState(result: result)
                 } else if result.key == "map" {
-                    addMapEntity(entity: result.entity)
+                    addMapEntityToState(entity: result.entity)
                 } else {}
             }
         }
     }
     
-    private func processLoadedPinModels(result: LoadResult) {
+    private func addMapPinEntitiesToState(result: LoadResult) {
         self.add(template: result.entity)
     }
     
-//    @discardableResult
-//    public func addPinEntitiesToScene(for key: PinKey) async -> [Entity] {
-//        do {
-//            print("add pin entities to scene fired")
-//            for pin in pinTemplates {
-//                root.addChild(pin)
-//            }
-//        }
-//        return pinTemplates
-//    }
-    
-    @discardableResult
-    public func addMapEntity(entity: Entity) -> Entity {
+    private func addMapEntityToState(entity: Entity) {
         print("add map entity to scene fired")
         // AppState が保持している mapModel に引数で受け取った Entity を追加することができる。AppState.mapModel で他のページからアクセスすることができ、root.addChild(appState.mapModel) でルートに追加することができる。SwiftSplash も同じ仕様
-        
         mapModel = entity
-        return entity
     }
     
     public func addMapEntityToScene() {
-        if mapModel != nil {
-            fatalError("map model is not loaded")
-        } else {
-            root.addChild(mapModel!)
+        guard let mapModel = mapModel else {
+            fatalError("Map model not loaded.")
         }
+        root.addChild(mapModel)
+    }
+    
+    public func addMapPinEntitiesToScene() {
+        for pin in pinTemplates {
+            root.addChild(pin)
+        }
+    }
+    
+    public func rotateRoot() {
+        // Y軸を中心に45度回転させる（ラジアンで指定）
+        let angle = Float.pi / 4 // 45度
+        root.transform.rotation = simd_quatf(angle: angle, axis: [1, 0, 0])
     }
     
     // 位置を設定する関数をMainActorを使って定義
@@ -138,23 +135,13 @@ extension AppState {
     @MainActor
     private func setPinsTappable(entity: Entity) async {
         entity.components[CollisionComponent.self] = CollisionComponent(
-            shapes: [.generateBox(size: [0.1, 0.1, 0.1])],
+            shapes: [.generateBox(size: [0.1, 1, 0.1])],
             mode: .trigger,
             filter: .sensor
         )
         // 入力ターゲットコンポーネントを追加
         entity.components[InputTargetComponent.self] = InputTargetComponent()
     }
-    
-//    @MainActor
-//    private func setCollisionComponentForEntity(entity: Entity) async {
-//        do {
-//            let collisionComponent = await CollisionComponent(shapes: [try ShapeResource.generateConvex(from: entity)])
-//            entity.components.set(InputTargetComponent())
-//        } catch {
-//            print("Failed to set collision component for entity. \(error)")
-//        }
-//    }
     
     private func loadMapModel(taskGroup: inout TaskGroup<LoadResult>) {
         taskGroup.addTask {
@@ -163,7 +150,7 @@ extension AppState {
                 logger.info("Loading start pirce.")
                 if let entity = try await self.loadFromRCPro(named: mapModelName, fromSceneNamed: mapSceneName, scaleFactor: 0.05
                 ) {
-                    await self.setImageBasedLightForEntity(entity: entity, intensityExponent: 0.5)
+                    await self.setImageBasedLightForEntity(entity: entity, intensityExponent: 0.8)
                     result = entity
                 }
             } catch {

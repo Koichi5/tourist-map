@@ -31,7 +31,7 @@ struct MapView: View {
                 .onEnded { value in
                     if let idComponent = value.entity.components[IdentifiableComponent.self] {
                         print("Entity ID: \(idComponent.id)")
-                        self.openWindow(id: ViewID.detailViewId, value: idComponent.id)
+                        self.openWindow(id: ViewID.cityViewId, value: idComponent.id)
                     }
                 }
         )

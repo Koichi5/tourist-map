@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import SwiftUI
 
 extension AppState {
     public func finishedStartingUp() {
@@ -18,13 +19,9 @@ extension AppState {
     
     public func startMap() {
         phase.transition(to: .map)
-        guard let mapModel = mapModel else {
-            fatalError("Map model not loaded.")
-        }
-        for pin in pinTemplates {
-            root.addChild(pin)
-        }
-        root.addChild(mapModel)
+        self.addMapEntityToScene()
+        self.addMapPinEntitiesToScene()
+        self.rotateRoot()
     }
     
     public func onPinTap() {
