@@ -43,6 +43,6 @@ struct CityBasicInfoView: View {
             }
             Spacer()
         }
-        .padding()
+        .padding(30)
     }
 }

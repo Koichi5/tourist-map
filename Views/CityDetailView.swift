@@ -24,7 +24,7 @@ struct CityDetailView: View {
             case .populationTrends:
                 CityPopulationTrendsView(populationTrendData: cityInfo.populationTrendData)
             case .touristSpot:
-                Text("観光地")
+                CityTouristSpotsView(touristSpots: cityInfo.touristSpots)
             case .inductory:
                 Text("産業")
             case nil:

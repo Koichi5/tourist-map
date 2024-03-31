@@ -6,8 +6,6 @@
 //
 
 import SwiftUI
-
-import SwiftUI
 import MapKit
 
 struct LookAroundView: View {
@@ -41,3 +39,42 @@ struct LookAroundView: View {
     }
 }
 
+//struct LookAroundView: View {
+//    @State private var lookAroundScene: MKLookAroundScene?
+//    @State private var isLookingAround = false
+//
+//    var body: some View {
+//        VStack {
+//            Image("tokyo")
+//                .resizable()
+//                .lookAroundViewer(isPresented: $isLookingAround, initialScene: lookAroundScene)
+//                .aspectRatio(contentMode: .fill)
+//                .onTapGesture {
+//                    isLookingAround = true
+//                }
+//
+//            if lookAroundScene != nil {
+//                Button(action: { isLookingAround = true }) {
+//                    Image(systemName: "binoculars")
+//                }
+//            }
+//        }
+//        .onAppear(perform: getLookAroundScene)
+//        .sheet(isPresented: $isLookingAround) {
+//            LookAroundPreview(initialScene: lookAroundScene)
+//        }
+//    }
+//
+//    private func getLookAroundScene() {
+//        lookAroundScene = nil
+//        Task {
+//            let request = MKLookAroundSceneRequest(coordinate: CLLocationCoordinate2D(latitude: 35.681236, longitude: 139.767125))
+//            do {
+//                lookAroundScene = try await request.scene
+//            } catch {
+//                print("Error getting look around scene: \(error)")
+//            }
+//        }
+//    }
+//}
+//

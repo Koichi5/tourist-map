@@ -36,6 +36,17 @@ struct MapView: View {
                 }
         )
     }
+    
+// map entity without loading
+    
+//    var body: some View {
+//        RealityView { content in
+//            if let mapEntity = try? await Entity(named: "Map", in: realityKitContentBundle) {
+//                mapEntity.scale = SIMD3<Float>(repeating: 0.05)
+//                content.add(mapEntity)
+//            }
+//        }
+//    }
 }
 
 #Preview {

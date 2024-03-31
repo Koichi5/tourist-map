@@ -21,49 +21,52 @@ struct CityView: View {
     
     var body: some View {
         NavigationStack(path: $path) {
-            ZStack {
-                VStack {
-                    if let cityInfo = cityInfo {
-                        Text(cityInfo.name)
-                            .font(.extraLargeTitle)
-                            .bold()
-                            .padding(.bottom, 150)
-                    } else {
-                        Text("都市の情報が見つかりません。")
-                    }
-                }
-                .background {
-                    if (showNightImage) {
-                        cityInfo?.nightImage
-                            .resizable()
-                            .aspectRatio(contentMode: .fill)
-                            .frame(width: 600, height: 400)
-                    } else {
-                        cityInfo?.image
-                            .resizable()
-                            .aspectRatio(contentMode: .fill)
-                            .frame(width: 600, height: 400)
-                    }
-                }
-                HStack {
-                    Spacer()
+            GeometryReader { geometry in
+                ZStack {
                     VStack {
-                        HStack {
-                            Button {
-                                showNightImage.toggle()
-                            } label: {
-                                Image(systemName: showNightImage ? "moon" : "sun.max")
-                            }
-                            .padding(.top)
-                            Button {
-                                dismissWindow(id: ViewID.cityViewId)
-                            } label: {
-                                Image(systemName: "xmark")
-                            }
-                            .padding(.top)
-                            .padding(.trailing)
+                        if let cityInfo = cityInfo {
+                            Text(cityInfo.name)
+                                .font(.extraLargeTitle)
+                                .bold()
+                                .padding(.bottom, 150)
+                        } else {
+                            Text("都市の情報が見つかりません。")
                         }
+                    }
+                    .background {
+                        if (showNightImage) {
+                            cityInfo?.nightImage
+                                .resizable()
+                                .aspectRatio(contentMode: .fill)
+                                .frame(width: geometry.size.width, height: geometry.size.width * 2/3)
+                                .clipped()
+                        } else {
+                            cityInfo?.image
+                                .resizable()
+                                .aspectRatio(contentMode: .fill)
+                                .frame(width: geometry.size.width, height: geometry.size.width * 2/3)
+                                .clipped()                        }
+                    }
+                    HStack {
                         Spacer()
+                        VStack {
+                            HStack {
+                                Button {
+                                    showNightImage.toggle()
+                                } label: {
+                                    Image(systemName: showNightImage ? "moon" : "sun.max")
+                                }
+                                .padding(.top)
+                                Button {
+                                    dismissWindow(id: ViewID.cityViewId)
+                                } label: {
+                                    Image(systemName: "xmark")
+                                }
+                                .padding(.top)
+                                .padding(.trailing)
+                            }
+                            Spacer()
+                        }
                     }
                 }
             }
