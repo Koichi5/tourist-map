@@ -7,6 +7,7 @@
 
 import Foundation
 import SwiftUI
+import RealityKit
 
 extension AppState {
     public func finishedStartingUp() {
@@ -25,6 +26,26 @@ extension AppState {
     }
     
     public func onPinTap() {
-        phase.transition(to: .onPinTap)
+        phase.transition(to: .city)
+    }
+    
+    public func cityBasicInfo() {
+        phase.transition(to: .cityBasicInfo)
+        isCityIndustryShown = false
+    }
+    
+    public func cityPopulationTrends() {
+        phase.transition(to: .cityPopulationTrends)
+        isCityIndustryShown = false
+    }
+    
+    public func cityTouristSpots() {
+        phase.transition(to: .cityTouristSpots)
+        isCityIndustryShown = false
+    }
+    
+    public func cityIndustry() {
+        phase.transition(to: .cityIndustry)
+        isCityIndustryShown = true
     }
 }

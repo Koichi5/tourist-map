@@ -14,6 +14,7 @@ struct CityView: View {
     @State private var path: [CityInfo] = []
     
     @Environment(\.dismissWindow) private var dismissWindow
+    @Environment(AppState.self) private var appState
     
     var cityInfo: CityInfo? {
         cities.first { $0.name.lowercased() == cityName.lowercased() }
@@ -75,6 +76,7 @@ struct CityView: View {
                     fatalError("Failed to navigate to city detail view")
                 }
                 path.append(cityInfo)
+                appState.cityBasicInfo()
             }
             .navigationDestination(for: CityInfo.self) { cityInfo in
                 CityDetailView(cityInfo: cityInfo)
@@ -83,6 +85,17 @@ struct CityView: View {
 //                    .frame(width: 600, height: 400)
 //                    .defaultSize(CGSize(width: 600, height: 400))
             }
+        }
+        .ornament(attachmentAnchor: .scene(.bottom)) {
+            appState.isCityIndustryShown ?
+            HStack {
+                Button("第一次産業") {
+                    print("primary on tap")
+                }
+                Button("第二、三次産業") {
+                    print("secondary on tap")
+                }
+            } : nil
         }
     }
 }

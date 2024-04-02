@@ -14,7 +14,7 @@ let tokyoTouristSpots = [
 ]
 
 let osakaTouristSpots = [
-    TouristSpot(name: "大阪城天守閣", description: "天正 11 年 (1583 年) に豊臣秀吉が天下統一を目指して築城した大阪城は、大阪のシンボルともいえるランドマーク。広大な敷地には、大阪城天守閣をはじめ、金明水井戸屋形、金蔵、焔硝蔵、大手門など国の重要文化財に指定された歴史的な遺構が数多く残されています。", latitude: 0.0, longitude: 0.0, imageName: "osakacastle"),
+    TouristSpot(name: "大阪城", description: "天正 11 年 (1583 年) に豊臣秀吉が天下統一を目指して築城した大阪城は、大阪のシンボルともいえるランドマーク。広大な敷地には、大阪城天守閣をはじめ、金明水井戸屋形、金蔵、焔硝蔵、大手門など国の重要文化財に指定された歴史的な遺構が数多く残されています。", latitude: 0.0, longitude: 0.0, imageName: "osakacastle"),
     TouristSpot(name: "ユニバーサル・スタジオ・ジャパン", description: "ユニバーサル・スタジオ・ジャパンは、スティーヴン・スピルバーグがクリエイティブ総監督を務めたダイナミックな世界観が人気のテーマパーク。盛りだくさんのアトラクションやライド、ショーに、小さな子供から大人まで誰でも夢中になるはず。", latitude: 0.0, longitude: 0.0, imageName: "usj"),
     TouristSpot(name: "通天閣", description: "浪速区の歓楽街「新世界」にそびえ立つ通天閣は、エネルギッシュな大阪の下町を象徴する存在です。高さ103メートルの通天閣にある展望台からは、大阪の街を一望することができます。", latitude: 0.0, longitude: 0.0, imageName: "tutenkaku"),
 ]

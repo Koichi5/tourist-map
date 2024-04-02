@@ -11,6 +11,7 @@ import RealityKitContent
 
 struct MapView: View {
     @Environment(AppState.self) var appState
+    
     @Environment(\.dismiss) internal var dismiss
     @Environment(\.openWindow) internal var openWindow
     
@@ -29,10 +30,7 @@ struct MapView: View {
             SpatialTapGesture()
                 .targetedToAnyEntity()
                 .onEnded { value in
-                    if let idComponent = value.entity.components[IdentifiableComponent.self] {
-                        print("Entity ID: \(idComponent.id)")
-                        self.openWindow(id: ViewID.cityViewId, value: idComponent.id)
-                    }
+                    self.onPinTap(value: value)
                 }
         )
     }

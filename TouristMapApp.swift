@@ -34,6 +34,7 @@ struct TouristMapApp: App {
         
         WindowGroup(id: ViewID.cityViewId, for: String.self) { value in
             CityView(cityName: value.wrappedValue!)
+                .environment(appState)
         }
         .defaultSize(CGSize(width: 600, height: 400))
 

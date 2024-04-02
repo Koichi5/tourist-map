@@ -9,12 +9,29 @@ import SwiftUI
 
 struct CityDetailView: View {
     let cityInfo: CityInfo
-    @State private var selectedCityDetailInfo: CityDetailInfoMenu?
+    @Environment(AppState.self) private var appState
+    @State private var selectedCityDetailInfo: CityDetailInfoMenu? = .basicInfo
     
     var body: some View {
         NavigationSplitView {
             List(CityDetailInfoMenu.allCases, id: \.self, selection: $selectedCityDetailInfo) { info in
-                NavigationLink(info.rawValue, value: info)
+                HStack {
+                    NavigationLink(info.rawValue, value: info)
+                    Spacer()
+                }
+                .contentShape(Rectangle())
+                .onTapGesture {
+                    switch info {
+                    case .basicInfo:
+                        appState.cityBasicInfo()
+                    case .populationTrends:
+                        appState.cityPopulationTrends()
+                    case .touristSpot:
+                        appState.cityTouristSpots()
+                    case .inductory:
+                        appState.cityIndustry()
+                    }
+                }
             }
             .navigationSplitViewColumnWidth(min: 100, ideal: 150, max: 200)
         } detail: {
@@ -26,7 +43,7 @@ struct CityDetailView: View {
             case .touristSpot:
                 CityTouristSpotsView(touristSpots: cityInfo.touristSpots)
             case .inductory:
-                Text("産業")
+                CityIndustryView(primaryCityIndustryData: cityInfo.cityIndustryDataSet.primary, secondaryAndTertiaryCityIndustryData: cityInfo.cityIndustryDataSet.secondaryAndTertiary)
             case nil:
                 Text("何も表示されない")
             }

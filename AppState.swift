@@ -16,6 +16,10 @@ public class AppState {
     
     var isImmersiveViewShown = false
     
+    // Cityの「産業」タブ
+    var isCityIndustryShown = false
+    var isPrimaryIndustryDataShown = true
+    
     var pinTemplates = [Entity]()
     
     public var root = Entity()

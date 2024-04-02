@@ -8,16 +8,23 @@
 import Foundation
 import OSLog
 
-public enum AppPhase: String, Codable, Sendable, Equatable {
+public enum AppPhase: String, Codable, Sendable, Equatable, Hashable, CaseIterable {
     case startingUp
     case loadingAssets
     case waitingToStart
     case map
-    case onPinTap
+    case city
+    case cityBasicInfo
+    case cityPopulationTrends
+    case cityTouristSpots
+    case cityIndustry
     
     var isImmersed: Bool {
         switch self {
-        case .startingUp, .loadingAssets, .waitingToStart, .map, .onPinTap:
+        case .startingUp, .loadingAssets, .waitingToStart, .map, .city, .cityBasicInfo,
+                .cityPopulationTrends,
+                .cityTouristSpots,
+                .cityIndustry:
             return false
         }
     }
@@ -31,9 +38,17 @@ public enum AppPhase: String, Codable, Sendable, Equatable {
         case .waitingToStart:
             return phase == .map
         case .map:
-            return phase == .onPinTap
-        case .onPinTap:
+            return phase == .city
+        case .city:
             return true
+        case .cityBasicInfo:
+            return phase == .city || phase == .cityPopulationTrends || phase == .cityTouristSpots || phase == .cityIndustry
+        case .cityPopulationTrends:
+            return phase == .city || phase == .cityPopulationTrends || phase == .cityTouristSpots || phase == .cityIndustry
+        case .cityTouristSpots:
+            return phase == .city || phase == .cityPopulationTrends || phase == .cityTouristSpots || phase == .cityIndustry
+        case .cityIndustry:
+            return phase == .city || phase == .cityPopulationTrends || phase == .cityTouristSpots || phase == .cityIndustry
         }
     }
     

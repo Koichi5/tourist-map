@@ -13,12 +13,12 @@ struct ContentView: View {
     
     @Environment(AppState.self) private var appState
     @Environment(\.scenePhase) private var scenePhase
-    @State private var showImmersiveSpace = false
-    @State private var immersiveSpaceIsShown = false
-
     @Environment(\.openImmersiveSpace) var openImmersiveSpace
     @Environment(\.dismissImmersiveSpace) var dismissImmersiveSpace
-
+    
+    @State private var showImmersiveSpace = false
+    @State private var immersiveSpaceIsShown = false
+    
     var body: some View {
         @Bindable var appState = appState
         switch appState.phase {
@@ -33,7 +33,7 @@ struct ContentView: View {
                     windowScene.requestGeometryUpdate(.Vision(resizingRestrictions: UIWindowScene.ResizingRestrictions.none))
                 }
                 .glassBackgroundEffect()
-        case .map, .onPinTap:
+        case .map, .city, .cityBasicInfo, .cityPopulationTrends, .cityTouristSpots, .cityIndustry:
             Spacer()
             MapView()
         }
