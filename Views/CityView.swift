@@ -9,7 +9,7 @@ import SwiftUI
 
 struct CityView: View {
     
-    @State var cityName: String
+    let cityName: String
     @State var showNightImage: Bool = false
     @State private var path: [CityInfo] = []
     
@@ -59,7 +59,7 @@ struct CityView: View {
                                 }
                                 .padding(.top)
                                 Button {
-                                    dismissWindow(id: ViewID.cityViewId)
+                                    dismissWindow(id: ViewID.cityView)
                                 } label: {
                                     Image(systemName: "xmark")
                                 }

@@ -9,16 +9,14 @@ import SwiftUI
 import MapKit
 
 struct LookAroundView: View {
-    // 東京駅の座標
+    let touristSpot: TouristSpot
     @State private var position: MapCameraPosition = .region(.init(
         center: .init(latitude: 35.681236, longitude: 139.767125),
         span: .init(latitudeDelta: 0.005, longitudeDelta: 0.005)
     ))
-
     @State private var lookAroundScene: MKLookAroundScene?
-
     @State private var isPresentedLookAroundPreview = false
-
+    
     var body: some View {
         MapReader { mapProxy in
             Map(position: $position)
@@ -29,8 +27,14 @@ struct LookAroundView: View {
                 }
         }
         .lookAroundViewer(isPresented: $isPresentedLookAroundPreview, scene: $lookAroundScene)
+        .onAppear {
+            position = .region(.init(
+                center: .init(latitude: CLLocationDegrees(touristSpot.latitude), longitude: CLLocationDegrees(touristSpot.longitude)),
+                span: .init(latitudeDelta: 0.005, longitudeDelta: 0.005)
+            ))
+        }
     }
-
+    
     func requestLookAroundScene(selectedLocation: CLLocationCoordinate2D) {
         Task {
             let request = MKLookAroundSceneRequest(coordinate: selectedLocation)
