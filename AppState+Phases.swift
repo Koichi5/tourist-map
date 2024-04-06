@@ -10,8 +10,10 @@ import SwiftUI
 import RealityKit
 
 extension AppState {
-    public func finishedStartingUp() {
+    public func finishedStartingUp() async {
         phase.transition(to: .loadingAssets)
+        // ローディングを見るためにあえて処理を遅く設定
+        try? await Task.sleep(nanoseconds: 4_000_000_000)
     }
     
     public func finishedLoadingAssets() {

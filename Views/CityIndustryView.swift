@@ -12,10 +12,25 @@ struct CityIndustryView: View {
     var secondaryAndTertiaryCityIndustryData: CityIndustryData
     @State private var showSecondaryData: Bool = false
     var body: some View {
-        VStack(alignment: .leading) {
+        ZStack() {
             Image(showSecondaryData ? secondaryAndTertiaryCityIndustryData.imageName : primaryCityIndustryData.imageName)
                 .resizable()
                 .scaledToFit()
+                .padding()
+            VStack {
+                HStack {
+                    Spacer()
+                    Button {
+                        showSecondaryData.toggle()
+                    } label: {
+                        Image(systemName: "arrow.left.arrow.right")
+                    }
+                    .buttonStyle(PlainButtonStyle())
+                    .background(Color.clear)
+                    .padding()
+                }
+                Spacer()
+            }
         }
         .navigationTitle(showSecondaryData ? "第二、三次産業" : "第一次産業")
     }

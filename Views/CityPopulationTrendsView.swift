@@ -16,9 +16,8 @@ struct CityPopulationTrendsView: View {
     @State private var maxPopulationYValue: Int = 0
     
     var body: some View {
-        VStack {
+        VStack(alignment: .leading) {
             Text("\(minYearXValue + 1) ~ \(maxYearXValue - 1)年の人口推移")
-                .font(.title)
             Chart(populationTrendData) { dataRow in
                 LineMark(x: .value("Year", dataRow.year), y: .value("Population", dataRow.population))
             }
@@ -31,8 +30,10 @@ struct CityPopulationTrendsView: View {
                 maxPopulationYValue = (populationTrendData.max {$0.population < $1.population }?.population ?? 0) + 100000
             }
         }
-        .padding(.horizontal, 30)
+        .navigationTitle("人口推移")
+        .padding(.top)
         .padding(.bottom, 30)
+        .padding(.horizontal, 30)
     }
 }
 

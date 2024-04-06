@@ -86,16 +86,5 @@ struct CityView: View {
 //                    .defaultSize(CGSize(width: 600, height: 400))
             }
         }
-        .ornament(attachmentAnchor: .scene(.bottom)) {
-            appState.isCityIndustryShown ?
-            HStack {
-                Button("第一次産業") {
-                    print("primary on tap")
-                }
-                Button("第二、三次産業") {
-                    print("secondary on tap")
-                }
-            } : nil
-        }
     }
 }

@@ -26,6 +26,10 @@ public class AppState {
     
     public var mapModel: Entity?
     
+    public var standByMapModel: Entity?
+    
+    public var animationPlayer: AnimationPlaybackController?
+    
     public var pins = [
         Pin(name: "tokyo", locationX: 0.043, locationZ: 0.049, key: .tokyo, city: City(name: "Tokyo", displayName: "東京", description: "日本の首都", latitude: 35.6813667, longitude: 139.7657033)),
         

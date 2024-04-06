@@ -44,5 +44,6 @@ struct CityBasicInfoView: View {
             Spacer()
         }
         .padding(30)
+        .navigationTitle("基本情報")
     }
 }

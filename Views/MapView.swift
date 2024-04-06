@@ -11,10 +11,9 @@ import RealityKitContent
 
 struct MapView: View {
     @Environment(AppState.self) var appState
-    
     @Environment(\.dismiss) internal var dismiss
     @Environment(\.openWindow) internal var openWindow
-    
+        
     enum AttachmentIDs: Int {
         case editMenu = 100
     }
@@ -34,17 +33,6 @@ struct MapView: View {
                 }
         )
     }
-    
-// map entity without loading
-    
-//    var body: some View {
-//        RealityView { content in
-//            if let mapEntity = try? await Entity(named: "Map", in: realityKitContentBundle) {
-//                mapEntity.scale = SIMD3<Float>(repeating: 0.05)
-//                content.add(mapEntity)
-//            }
-//        }
-//    }
 }
 
 #Preview {

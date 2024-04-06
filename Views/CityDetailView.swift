@@ -20,18 +20,6 @@ struct CityDetailView: View {
                     Spacer()
                 }
                 .contentShape(Rectangle())
-                .onTapGesture {
-                    switch info {
-                    case .basicInfo:
-                        appState.cityBasicInfo()
-                    case .populationTrends:
-                        appState.cityPopulationTrends()
-                    case .touristSpot:
-                        appState.cityTouristSpots()
-                    case .inductory:
-                        appState.cityIndustry()
-                    }
-                }
             }
             .navigationSplitViewColumnWidth(min: 100, ideal: 150, max: 200)
         } detail: {

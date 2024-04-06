@@ -22,7 +22,7 @@ struct ContentView: View {
     var body: some View {
         @Bindable var appState = appState
         switch appState.phase {
-        case .startingUp, .waitingToStart, .loadingAssets:
+        case .startingUp, .waitingToStart:
             Spacer()
             SplashScreenView()
                 .onAppear {
@@ -33,6 +33,8 @@ struct ContentView: View {
                     windowScene.requestGeometryUpdate(.Vision(resizingRestrictions: UIWindowScene.ResizingRestrictions.none))
                 }
                 .glassBackgroundEffect()
+        case .loadingAssets:
+            ModelLoadingView()
         case .map, .city, .cityBasicInfo, .cityPopulationTrends, .cityTouristSpots, .cityIndustry:
             Spacer()
             MapView()

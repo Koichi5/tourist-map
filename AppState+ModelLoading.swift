@@ -46,7 +46,7 @@ extension AppState {
         }
         _ = Date.timeIntervalSinceReferenceDate
         logger.info("Starting load from Reality Composer Pro Project.")
-        finishedStartingUp()
+        await finishedStartingUp()
         await withTaskGroup(of: LoadResult.self) { taskGroup in
             loadMapModel(taskGroup: &taskGroup)
             loadMapPinModels(taskGroup: &taskGroup)
@@ -55,7 +55,7 @@ extension AppState {
                     addMapPinEntitiesToState(result: result)
                 } else if result.key == "map" {
                     addMapEntityToState(entity: result.entity)
-                } else {}
+                }
             }
         }
     }
@@ -65,7 +65,7 @@ extension AppState {
     }
     
     private func addMapEntityToState(entity: Entity) {
-        print("add map entity to scene fired")
+        print("add map entity to state fired")
         // AppState が保持している mapModel に引数で受け取った Entity を追加することができる。AppState.mapModel で他のページからアクセスすることができ、root.addChild(appState.mapModel) でルートに追加することができる。SwiftSplash も同じ仕様
         mapModel = entity
     }
@@ -94,7 +94,12 @@ extension AppState {
     private func setPositionForEntity(_ entity: Entity, position: SIMD3<Float>) {
         entity.position = position
     }
-
+    
+    @MainActor
+    private func setScaleForEntity(entity: Entity, scale: Float) {
+        entity.scale = SIMD3<Float>(repeating: scale)
+    }
+    
     private func loadMapPinModels(taskGroup: inout TaskGroup<LoadResult>) {
         logger.info("Loading map models")
         for pin in pins {
@@ -122,7 +127,7 @@ extension AppState {
         else { return }
         
         let iblComponent = ImageBasedLightComponent(source: .single(env), intensityExponent: intensityExponent)
-
+        
         entity.components[ImageBasedLightComponent.self] = iblComponent
         entity.components.set(ImageBasedLightReceiverComponent(imageBasedLight: entity))
     }
@@ -143,11 +148,18 @@ extension AppState {
         entity.components[InputTargetComponent.self] = InputTargetComponent()
     }
     
+    @MainActor
+    private func setAnimation(entity: Entity) async {
+        let animation = entity.availableAnimations[0]
+        let player = entity.playAnimation(animation.repeat(), transitionDuration: 0.25, startsPaused: true)
+        self.animationPlayer = player
+    }
+    
     private func loadMapModel(taskGroup: inout TaskGroup<LoadResult>) {
         taskGroup.addTask {
             var result: Entity? = nil
             do {
-                logger.info("Loading start pirce.")
+                logger.info("Loading map model.")
                 if let entity = try await self.loadFromRCPro(named: mapModelName, fromSceneNamed: mapSceneName, scaleFactor: 0.05
                 ) {
                     await self.setImageBasedLightForEntity(entity: entity, intensityExponent: 0.8)
