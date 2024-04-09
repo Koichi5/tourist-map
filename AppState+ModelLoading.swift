@@ -22,6 +22,7 @@ struct LoadResult: Sendable {
 }
 
 extension AppState {
+    // load assets from Reality Composer Pro
     private func loadFromRCPro(named entityName: String, fromSceneNamed sceneName: String, scaleFactor: Float? = nil) async throws -> Entity? {
         var ret: Entity? = nil
         logger.info("Loading entity \(entityName) from Reality Composer Pro scene \(sceneName)")
@@ -40,6 +41,7 @@ extension AppState {
         return ret
     }
     
+    // load assets that use in this app
     public func loadModels() async {
         defer {
             finishedLoadingAssets()
@@ -60,16 +62,19 @@ extension AppState {
         }
     }
     
+    // add map pin entities to app state
     private func addMapPinEntitiesToState(result: LoadResult) {
         self.add(template: result.entity)
     }
     
+    // add map entity to app state
     private func addMapEntityToState(entity: Entity) {
         print("add map entity to state fired")
         // AppState が保持している mapModel に引数で受け取った Entity を追加することができる。AppState.mapModel で他のページからアクセスすることができ、root.addChild(appState.mapModel) でルートに追加することができる。SwiftSplash も同じ仕様
         mapModel = entity
     }
     
+    // add map entity to root entity
     public func addMapEntityToScene() {
         guard let mapModel = mapModel else {
             fatalError("Map model not loaded.")
@@ -77,29 +82,33 @@ extension AppState {
         root.addChild(mapModel)
     }
     
+    // add map pin entities to root entity
     public func addMapPinEntitiesToScene() {
         for pin in pinTemplates {
             root.addChild(pin)
         }
     }
     
+    // rotate root entity
     public func rotateRoot() {
         // Y軸を中心に45度回転させる（ラジアンで指定）
         let angle = Float.pi / 4 // 45度
         root.transform.rotation = simd_quatf(angle: angle, axis: [1, 0, 0])
     }
     
-    // 位置を設定する関数をMainActorを使って定義
+    // set entity position ( to adjust pin location )
     @MainActor
     private func setPositionForEntity(_ entity: Entity, position: SIMD3<Float>) {
         entity.position = position
     }
     
+    // set entity scale
     @MainActor
     private func setScaleForEntity(entity: Entity, scale: Float) {
         entity.scale = SIMD3<Float>(repeating: scale)
     }
     
+    // locad pin model (load from Reality Composer Pro and change position, lighting, tapp gesture and id)
     private func loadMapPinModels(taskGroup: inout TaskGroup<LoadResult>) {
         logger.info("Loading map models")
         for pin in pins {
@@ -112,7 +121,7 @@ extension AppState {
                     await self.setPositionForEntity(pinEntity, position: SIMD3<Float>(pin.locationX, 0.004, pin.locationZ))
                     await self.setImageBasedLightForEntity(entity: pinEntity, intensityExponent: 0.8)
                     await self.setPinsTappable(entity: pinEntity)
-                    await self.setIdentifiableComponent(entity: pinEntity, id: pin.name)
+                    await self.setIdentifiableComponent(entity: pinEntity, id: pin.name, displayName: pin.city.displayName)
                     return LoadResult(entity: pinEntity, key: pin.key.rawValue)
                 } catch {
                     fatalError("Attempter to load \(pin.name)")
@@ -121,6 +130,7 @@ extension AppState {
         }
     }
     
+    // set entity lighting
     @MainActor
     private func setImageBasedLightForEntity(entity: Entity, intensityExponent: Float) async {
         guard let env = try? await EnvironmentResource(named: "ImageBasedLight")
@@ -132,11 +142,13 @@ extension AppState {
         entity.components.set(ImageBasedLightReceiverComponent(imageBasedLight: entity))
     }
     
-    private func setIdentifiableComponent(entity: Entity, id: String) async {
-        let identifiableComponent = IdentifiableComponent(id: id)
+    // set entity id(make pin identifiable)
+    private func setIdentifiableComponent(entity: Entity, id: String, displayName: String) async {
+        let identifiableComponent = IdentifiableComponent(id: id, displayName: displayName)
         entity.components.set(identifiableComponent)
     }
     
+    // set entity tap gesture(make pin tappable)
     @MainActor
     private func setPinsTappable(entity: Entity) async {
         entity.components[CollisionComponent.self] = CollisionComponent(
@@ -148,12 +160,13 @@ extension AppState {
         entity.components[InputTargetComponent.self] = InputTargetComponent()
     }
     
-    @MainActor
-    private func setAnimation(entity: Entity) async {
-        let animation = entity.availableAnimations[0]
-        let player = entity.playAnimation(animation.repeat(), transitionDuration: 0.25, startsPaused: true)
-        self.animationPlayer = player
-    }
+//    // set entity animation
+//    @MainActor
+//    private func setAnimation(entity: Entity) async {
+//        let animation = entity.availableAnimations[0]
+//        let player = entity.playAnimation(animation.repeat(), transitionDuration: 0.25, startsPaused: true)
+//        self.animationPlayer = player
+//    }
     
     private func loadMapModel(taskGroup: inout TaskGroup<LoadResult>) {
         taskGroup.addTask {

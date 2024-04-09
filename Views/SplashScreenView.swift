@@ -15,26 +15,24 @@ struct SplashScreenView: View {
             Text("Tourist Map")
                 .font(.extraLargeTitle2)
                 .fontWeight(.bold)
+                .padding(.vertical)
             Text("Let't see japanese sightseeing spots")
                 .font(.system(size: 18))
                 .fontWeight(.bold)
-                .padding(.top, 30)
-                .padding(.bottom, 30)
-            
+                .padding(.bottom)
             
             Button("Start map") {
                 appState.startMap()
             }
             .accessibilityElement()
-            
         }
-        .offset(y: 100)
-        .frame(maxWidth: 600, maxHeight: 440, alignment: .center)
+        .offset(y: 130)
+        .frame(maxWidth: 500, maxHeight: 470, alignment: .center)
         .background {
-            Image("Home")
+            Image("home")
                 .resizable()
                 .aspectRatio(contentMode: .fit)
-                .offset(y: -110)
+                .offset(y: -100)
         }
     }
 }

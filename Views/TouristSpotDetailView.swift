@@ -32,6 +32,7 @@ struct TouristSpotDetailView: View {
                     } label: {
                         Image(systemName: "map")
                     }
+                    .padding()
                 }
             }
             .navigationTitle(touristSpot.name)

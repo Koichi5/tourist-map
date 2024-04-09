@@ -10,4 +10,5 @@ import RealityKit
 
 struct IdentifiableComponent: Component {
     var id: String
+    var displayName: String
 }

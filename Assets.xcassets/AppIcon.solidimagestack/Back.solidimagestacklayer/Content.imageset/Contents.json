@@ -1,6 +1,7 @@
 {
   "images" : [
     {
+      "filename" : "tourist_map_back.png",
       "idiom" : "vision",
       "scale" : "2x"
     }
