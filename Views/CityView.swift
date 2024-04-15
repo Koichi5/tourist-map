@@ -46,7 +46,8 @@ struct CityView: View {
                                 .resizable()
                                 .aspectRatio(contentMode: .fill)
                                 .frame(width: geometry.size.width, height: geometry.size.width * 2/3)
-                                .clipped()                        }
+                                .clipped()
+                        }
                     }
                     HStack {
                         Spacer()
@@ -80,10 +81,10 @@ struct CityView: View {
             }
             .navigationDestination(for: CityInfo.self) { cityInfo in
                 CityDetailView(cityInfo: cityInfo)
-//                    .navigationTitle(cityInfo.name)
+                //                    .navigationTitle(cityInfo.name)
                     .navigationBarBackButtonHidden()
-//                    .frame(width: 600, height: 400)
-//                    .defaultSize(CGSize(width: 600, height: 400))
+                //                    .frame(width: 600, height: 400)
+                //                    .defaultSize(CGSize(width: 600, height: 400))
             }
         }
     }

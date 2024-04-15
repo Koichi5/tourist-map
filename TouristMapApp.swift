@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import SwiftData
 
 @main
 @MainActor
@@ -17,17 +18,19 @@ struct TouristMapApp: App {
     @State private var immersionStyle: ImmersionStyle = .mixed
     var body: some Scene {
         WindowGroup(id: ViewID.touristMap) {
-            ContentView()
-                .environment(appState)
-                .onChange(of: appState.phase.isImmersed) { _, showMRView in
-                    if showMRView {
-                        Task {
-                            appState.isImmersiveViewShown = true
-                            await openImmersiveSpace(id: "ImmersiveSpace")
-                            dismissWindow(id: "TouristMap")
-                        }
-                    }
-                }
+            SwiftDataSampleView()
+                .modelContainer(for: [CityInfoDataModel.self, TouristSpotDataModel.self])
+//            ContentView()
+//                .environment(appState)
+//                .onChange(of: appState.phase.isImmersed) { _, showMRView in
+//                    if showMRView {
+//                        Task {
+//                            appState.isImmersiveViewShown = true
+//                            await openImmersiveSpace(id: "ImmersiveSpace")
+//                            dismissWindow(id: "TouristMap")
+//                        }
+//                    }
+//                }
         }
         .windowStyle(.plain)
         .windowResizability(.contentSize)
@@ -38,10 +41,10 @@ struct TouristMapApp: App {
         }
         .defaultSize(CGSize(width: 600, height: 400))
         
-        WindowGroup(id: ViewID.lookAroundView, for: TouristSpot.self) { value in
-            LookAroundView(touristSpot: value.wrappedValue!)
-        }
-
+//        WindowGroup(id: ViewID.lookAroundView, for: TouristSpot.self) { value in
+//            LookAroundView(touristSpot: value.wrappedValue!)
+//        }
+        
         ImmersiveSpace(id: ViewID.immersive) {
             ImmersiveView()
                 .environment(appState)

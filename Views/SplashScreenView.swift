@@ -9,6 +9,7 @@ import SwiftUI
 
 struct SplashScreenView: View {
     @Environment(AppState.self) var appState
+    @ObservedObject var viewModel = PlacePhotoManager()
     
     var body: some View {
         VStack {
@@ -35,8 +36,4 @@ struct SplashScreenView: View {
                 .offset(y: -100)
         }
     }
-}
-
-#Preview {
-    SplashScreenView()
 }

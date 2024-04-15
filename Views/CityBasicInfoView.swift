@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct CityBasicInfoView: View {
-    let basicInfo: BasicInfo
+    let prefecture: Prefecture?
     var body: some View {
         VStack {
             HStack {
@@ -19,7 +19,7 @@ struct CityBasicInfoView: View {
                     Text("県庁所在地：")
                 }
                 Spacer()
-                Text(basicInfo.capitalLocation)
+                Text(prefecture?.capital ?? "")
             }
             HStack {
                 HStack {
@@ -29,7 +29,7 @@ struct CityBasicInfoView: View {
                     Text("人口：")
                 }
                 Spacer()
-                Text("\(basicInfo.population)人")
+                Text("\(prefecture?.population ?? 0)人")
             }
             HStack {
                 HStack {
@@ -39,7 +39,17 @@ struct CityBasicInfoView: View {
                     Text("面積：")
                 }
                 Spacer()
-                Text("\(basicInfo.area) k㎡")
+                Text("\(prefecture?.area ?? 0) k㎡")
+            }
+            HStack {
+                HStack {
+                    Image(systemName: "person")
+                        .frame(width: 30, height: 30)
+                        .padding()
+                    Text("人口密度：")
+                }
+                Spacer()
+                Text("\(prefecture?.population ?? 0 / (prefecture?.area ?? 0) ?? 0) 人 / k㎡")
             }
             Spacer()
         }

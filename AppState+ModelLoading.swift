@@ -22,6 +22,7 @@ struct LoadResult: Sendable {
 }
 
 extension AppState {
+    // MARK: Loading assets
     // load assets from Reality Composer Pro
     private func loadFromRCPro(named entityName: String, fromSceneNamed sceneName: String, scaleFactor: Float? = nil) async throws -> Entity? {
         var ret: Entity? = nil
@@ -62,52 +63,6 @@ extension AppState {
         }
     }
     
-    // add map pin entities to app state
-    private func addMapPinEntitiesToState(result: LoadResult) {
-        self.add(template: result.entity)
-    }
-    
-    // add map entity to app state
-    private func addMapEntityToState(entity: Entity) {
-        print("add map entity to state fired")
-        // AppState が保持している mapModel に引数で受け取った Entity を追加することができる。AppState.mapModel で他のページからアクセスすることができ、root.addChild(appState.mapModel) でルートに追加することができる。SwiftSplash も同じ仕様
-        mapModel = entity
-    }
-    
-    // add map entity to root entity
-    public func addMapEntityToScene() {
-        guard let mapModel = mapModel else {
-            fatalError("Map model not loaded.")
-        }
-        root.addChild(mapModel)
-    }
-    
-    // add map pin entities to root entity
-    public func addMapPinEntitiesToScene() {
-        for pin in pinTemplates {
-            root.addChild(pin)
-        }
-    }
-    
-    // rotate root entity
-    public func rotateRoot() {
-        // Y軸を中心に45度回転させる（ラジアンで指定）
-        let angle = Float.pi / 4 // 45度
-        root.transform.rotation = simd_quatf(angle: angle, axis: [1, 0, 0])
-    }
-    
-    // set entity position ( to adjust pin location )
-    @MainActor
-    private func setPositionForEntity(_ entity: Entity, position: SIMD3<Float>) {
-        entity.position = position
-    }
-    
-    // set entity scale
-    @MainActor
-    private func setScaleForEntity(entity: Entity, scale: Float) {
-        entity.scale = SIMD3<Float>(repeating: scale)
-    }
-    
     // locad pin model (load from Reality Composer Pro and change position, lighting, tapp gesture and id)
     private func loadMapPinModels(taskGroup: inout TaskGroup<LoadResult>) {
         logger.info("Loading map models")
@@ -128,6 +83,75 @@ extension AppState {
                 }
             }
         }
+    }
+    
+    private func loadMapModel(taskGroup: inout TaskGroup<LoadResult>) {
+        taskGroup.addTask {
+            var result: Entity? = nil
+            do {
+                logger.info("Loading map model.")
+                if let entity = try await self.loadFromRCPro(named: mapModelName, fromSceneNamed: mapSceneName, scaleFactor: 0.05
+                ) {
+                    await self.setImageBasedLightForEntity(entity: entity, intensityExponent: 1.5)
+                    result = entity
+                }
+            } catch {
+                fatalError("Attempted to load map entity but failed: \(error.localizedDescription)")
+            }
+            guard let result = result else {
+                fatalError("Loaded map model is nil")
+            }
+            return LoadResult(entity: result, key: "map")
+        }
+    }
+    
+    // MARK: Add entities to AppState
+    // add map pin entities to app state
+    private func addMapPinEntitiesToState(result: LoadResult) {
+        self.add(template: result.entity)
+    }
+    
+    // add map entity to app state
+    private func addMapEntityToState(entity: Entity) {
+        print("add map entity to state fired")
+        // AppState が保持している mapModel に引数で受け取った Entity を追加することができる。AppState.mapModel で他のページからアクセスすることができ、root.addChild(appState.mapModel) でルートに追加することができる。SwiftSplash も同じ仕様
+        mapModel = entity
+    }
+    
+    // MARK: Add entities to Root entity
+    // add map entity to root entity
+    public func addMapEntityToScene() {
+        guard let mapModel = mapModel else {
+            fatalError("Map model not loaded.")
+        }
+        root.addChild(mapModel)
+    }
+    
+    // add map pin entities to root entity
+    public func addMapPinEntitiesToScene() {
+        for pin in pinTemplates {
+            root.addChild(pin)
+        }
+    }
+    
+    // MARK: Entity settings
+    // rotate root entity
+    public func rotateRoot() {
+        // Y軸を中心に45度回転させる（ラジアンで指定）
+        let angle = Float.pi / 4 // 45度
+        root.transform.rotation = simd_quatf(angle: angle, axis: [1, 0, 0])
+    }
+    
+    // set entity position ( to adjust pin location )
+    @MainActor
+    private func setPositionForEntity(_ entity: Entity, position: SIMD3<Float>) {
+        entity.position = position
+    }
+    
+    // set entity scale
+    @MainActor
+    private func setScaleForEntity(entity: Entity, scale: Float) {
+        entity.scale = SIMD3<Float>(repeating: scale)
     }
     
     // set entity lighting
@@ -167,24 +191,4 @@ extension AppState {
 //        let player = entity.playAnimation(animation.repeat(), transitionDuration: 0.25, startsPaused: true)
 //        self.animationPlayer = player
 //    }
-    
-    private func loadMapModel(taskGroup: inout TaskGroup<LoadResult>) {
-        taskGroup.addTask {
-            var result: Entity? = nil
-            do {
-                logger.info("Loading map model.")
-                if let entity = try await self.loadFromRCPro(named: mapModelName, fromSceneNamed: mapSceneName, scaleFactor: 0.05
-                ) {
-                    await self.setImageBasedLightForEntity(entity: entity, intensityExponent: 0.8)
-                    result = entity
-                }
-            } catch {
-                fatalError("Attempted to load map entity but failed: \(error.localizedDescription)")
-            }
-            guard let result = result else {
-                fatalError("Loaded map model is nil")
-            }
-            return LoadResult(entity: result, key: "map")
-        }
-    }
 }

@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import SwiftUI
 import RealityKit
 
 @Observable
@@ -22,6 +23,9 @@ public class AppState {
     
     var pinTemplates = [Entity]()
     
+    public var defaultPinScale = SIMD3<Float>(0.03, 0.03, 0.03)
+    public var largePinScale = SIMD3<Float>(0.08, 0.08, 0.08)
+    
     public var root = Entity()
     
     public var mapModel: Entity?
@@ -35,7 +39,7 @@ public class AppState {
         
         Pin(name: "osaka", locationX: -0.05, locationZ: 0.078, key: .osaka, city: City(name: "Osaka", displayName: "大阪", description: "日本の首都", latitude: 35.6813667, longitude: 139.7657033))
     ]
-    
+        
     init() {
         Task.detached(priority: .high) {
             await self.loadModels()

@@ -7,7 +7,6 @@
 
 import SwiftUI
 import RealityKit
-import RealityKitContent
 
 struct MapView: View {
     @Environment(AppState.self) var appState
@@ -41,14 +40,14 @@ struct MapView: View {
                     .padding(.top, 50)
                     .padding(.leading, 50)
                     .onChange(of: searchText) {
-                        updateEntityVisibility(for: searchText)
+                        appState.updateEntityVisibility(for: searchText)
                     }
             }
         }
         .ornament(attachmentAnchor: .scene(.bottom)) {
             Button {
                 isSearchFieldShown.toggle()
-                updateEntityVisibility(for: "")
+                appState.updateEntityVisibility(for: "")
             } label: {
                 isSearchFieldShown ? HStack {
                     Image(systemName: "xmark")
@@ -58,31 +57,9 @@ struct MapView: View {
                     Image(systemName: "magnifyingglass")
                     Text("検索")
                 }
-                
             }
         }
     }
-    
-    @MainActor func updateEntityVisibility(for searchText: String) {
-        appState.root.children.forEach { entity in
-            if let identifiableComponent = entity.components[IdentifiableComponent.self] {
-                let searchTextLowercased = searchText.lowercased()
-                let idLowercased = identifiableComponent.id.lowercased()
-                let idDisplayName = identifiableComponent.displayName
-                
-                if searchText.isEmpty {
-                    entity.isEnabled = true
-                    // デフォルトのピンの大きさ
-                    entity.scale = SIMD3<Float>(0.03, 0.03, 0.03)
-                } else {
-                    // searchTextによるフィルタリング（現在キーボードは日本語対応していないが、displayName 検索にも対応）
-                    entity.isEnabled = idLowercased.contains(searchTextLowercased) || idDisplayName.contains(searchText)
-                    entity.scale = SIMD3<Float>(0.08, 0.08, 0.08)
-                }
-            }
-        }
-    }
-    
 }
 
 #Preview {

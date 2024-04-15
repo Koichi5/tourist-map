@@ -10,6 +10,7 @@ import SwiftUI
 struct CityDetailView: View {
     let cityInfo: CityInfo
     @Environment(AppState.self) private var appState
+    @ObservedObject var populationViewModel = PopulationManager()
     @State private var selectedCityDetailInfo: CityDetailInfoMenu? = .basicInfo
     
     var body: some View {
@@ -25,15 +26,20 @@ struct CityDetailView: View {
         } detail: {
             switch selectedCityDetailInfo {
             case .basicInfo:
-                CityBasicInfoView(basicInfo: cityInfo.basicInfo)
+                CityBasicInfoView(prefecture: cityInfo.prefecture)
             case .populationTrends:
-                CityPopulationTrendsView(populationTrendData: cityInfo.populationTrendData)
+                CityPopulationTrendsView(populationTrendData: populationViewModel.populationTrendsLineData)
             case .touristSpot:
                 CityTouristSpotsView(touristSpots: cityInfo.touristSpots)
             case .inductory:
-                CityIndustryView(primaryCityIndustryData: cityInfo.cityIndustryDataSet.primary, secondaryAndTertiaryCityIndustryData: cityInfo.cityIndustryDataSet.secondaryAndTertiary)
+                IndustryDataView()
             case nil:
                 Text("何も表示されない")
+            }
+        }
+        .onAppear {
+            populationViewModel.fetchPopulationData(prefCode: 13) { result in
+                print(result ?? "")
             }
         }
     }

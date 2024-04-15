@@ -12,34 +12,24 @@ struct TouristSpotDetailView: View {
     let touristSpot: TouristSpot
     
     var body: some View {
-            GeometryReader { geometry in
-                ZStack (alignment: .topTrailing){
-                    ScrollView {
-                        VStack(alignment: .leading) {
-                            Image(touristSpot.imageName)
-                                .resizable()
-                                .aspectRatio(contentMode: .fill)
-                                .frame(width: geometry.size.width, height: geometry.size.width * 0.5)
-                                .clipped()
-                            Spacer()
-                            Text(touristSpot.description)
-                                .padding()
-                                .font(.system(size: calculateFontSize(forWidth: geometry.size.width)))
-                        }
-                    }
-                    Button {
-                        openWindow(id: ViewID.lookAroundView, value: touristSpot)
-                    } label: {
-                        Image(systemName: "map")
-                    }
-                    .padding()
+        ZStack(alignment: .topTrailing) {
+            ScrollView {
+                VStack {
+                    PhotoListView(touristSpot: touristSpot)
+                    Text(touristSpot.description)
+                        .padding()
                 }
             }
-            .navigationTitle(touristSpot.name)
-        
+            Button {
+//                openWindow(id: ViewID.lookAroundView, value: touristSpot)
+            } label: {
+                Image(systemName: "map")
+            }
+            .padding()
+        }
+            .navigationTitle(touristSpot.name ?? "")
     }
     
-    // ウィンドウの幅に基づいてフォントサイズを計算する関数
     func calculateFontSize(forWidth width: CGFloat) -> CGFloat {
         let baseWidth: CGFloat = 600
         let baseFontSize: CGFloat = 20
