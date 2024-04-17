@@ -50,6 +50,7 @@ extension AppState {
         _ = Date.timeIntervalSinceReferenceDate
         logger.info("Starting load from Reality Composer Pro Project.")
         await finishedStartingUp()
+        // モデルの読み込み
         await withTaskGroup(of: LoadResult.self) { taskGroup in
             loadMapModel(taskGroup: &taskGroup)
             loadMapPinModels(taskGroup: &taskGroup)

@@ -9,7 +9,7 @@ import SwiftUI
 
 struct PhotoListView: View {
     @ObservedObject var imageManager = PlacePhotoManager()
-    let touristSpot: TouristSpot
+    let touristSpot: TouristSpotDataModel
     
     var body: some View {
             ScrollView(.horizontal) {

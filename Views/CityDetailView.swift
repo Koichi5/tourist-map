@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct CityDetailView: View {
-    let cityInfo: CityInfo
+    let cityInfoDataModel: CityInfoDataModel
     @Environment(AppState.self) private var appState
     @ObservedObject var populationViewModel = PopulationManager()
     @State private var selectedCityDetailInfo: CityDetailInfoMenu? = .basicInfo
@@ -26,11 +26,11 @@ struct CityDetailView: View {
         } detail: {
             switch selectedCityDetailInfo {
             case .basicInfo:
-                CityBasicInfoView(prefecture: cityInfo.prefecture)
+                CityBasicInfoView(prefecture: cityInfoDataModel.prefecture)
             case .populationTrends:
                 CityPopulationTrendsView(populationTrendData: populationViewModel.populationTrendsLineData)
             case .touristSpot:
-                CityTouristSpotsView(touristSpots: cityInfo.touristSpots)
+                CityTouristSpotsView(touristSpots: cityInfoDataModel.touristSpots)
             case .inductory:
                 IndustryDataView()
             case nil:

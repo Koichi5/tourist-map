@@ -9,7 +9,7 @@ import SwiftUI
 import MapKit
 
 struct LookAroundView: View {
-    let touristSpot: TouristSpot
+    let touristSpot: TouristSpotDataModel
     @State private var position: MapCameraPosition = .region(.init(
         center: .init(latitude: 35.681236, longitude: 139.767125),
         span: .init(latitudeDelta: 0.005, longitudeDelta: 0.005)
@@ -32,7 +32,7 @@ struct LookAroundView: View {
         )
         .onAppear {
             position = .region(.init(
-                center: .init(latitude: CLLocationDegrees(touristSpot.latitude), longitude: CLLocationDegrees(touristSpot.longitude)),
+                center: .init(latitude: CLLocationDegrees(touristSpot.latitude ?? 0), longitude: CLLocationDegrees(touristSpot.longitude ?? 0)),
                 span: .init(latitudeDelta: 0.005, longitudeDelta: 0.005)
             ))
         }

@@ -8,8 +8,8 @@
 import SwiftUI
 
 struct CityTouristSpotsView: View {
-    let touristSpots: [TouristSpot]
-    @State private var path: [TouristSpot] = []
+    let touristSpots: [TouristSpotDataModel]
+    @State private var path: [TouristSpotDataModel] = []
     
     var body: some View {
         NavigationStack(path: $path) {
@@ -36,7 +36,7 @@ struct CityTouristSpotsView: View {
         return LazyVGrid(columns: columns, spacing: spacing) {
             ForEach(touristSpots, id: \.name) { spot in
                 VStack(alignment: .leading) {
-                    AsyncImage(url: URL(string: spot.thumbnailImageUrl)) { image in
+                    AsyncImage(url: URL(string: spot.thumbnailImageUrl ?? "")) { image in
                         image
                             .resizable()
                             .scaledToFit()
@@ -45,7 +45,7 @@ struct CityTouristSpotsView: View {
                     } placeholder: {
                         ProgressView()
                     }
-                    Text(spot.name)
+                    Text(spot.name ?? "")
                         .lineLimit(1)
                         .padding()
                     Spacer()
@@ -54,7 +54,7 @@ struct CityTouristSpotsView: View {
                 .onTapGesture {
                     path.append(spot)
                 }
-                .navigationDestination(for: TouristSpot.self) { spot in
+                .navigationDestination(for: TouristSpotDataModel.self) { spot in
                     TouristSpotDetailView(touristSpot: spot)
                 }
             }

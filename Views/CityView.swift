@@ -6,16 +6,21 @@
 //
 
 import SwiftUI
+import SwiftData
 
 struct CityView: View {
     
     let cityName: String
     @State var showNightImage: Bool = false
-    @State private var path: [CityInfo] = []
+    @State private var path: [CityInfoDataModel] = []
+    @State private var cityInfoDataModel: CityInfoDataModel?
+    
+    @ObservedObject var viewModel = CityInfoDataViewModel()
+    @Query private var cityInfoDataModelList: [CityInfoDataModel]
     
     @Environment(\.dismissWindow) private var dismissWindow
     @Environment(AppState.self) private var appState
-    
+        
     var cityInfo: CityInfo? {
         cities.first { $0.name.lowercased() == cityName.lowercased() }
     }
@@ -25,29 +30,17 @@ struct CityView: View {
             GeometryReader { geometry in
                 ZStack {
                     VStack {
-                        if let cityInfo = cityInfo {
-                            Text(cityInfo.name)
-                                .font(.extraLargeTitle)
-                                .bold()
-                                .padding(.bottom, 150)
-                        } else {
-                            Text("都市の情報が見つかりません。")
-                        }
+                        Text(cityInfoDataModel?.prefecture?.nameInKanji() ?? "都市の情報が見つかりません")
+                            .font(.extraLargeTitle)
+                            .bold()
+                            .padding(.bottom, 150)
                     }
                     .background {
-                        if (showNightImage) {
-                            cityInfo?.nightImage
+                            Image(cityInfoDataModel?.imageName ?? "")
                                 .resizable()
                                 .aspectRatio(contentMode: .fill)
                                 .frame(width: geometry.size.width, height: geometry.size.width * 2/3)
                                 .clipped()
-                        } else {
-                            cityInfo?.image
-                                .resizable()
-                                .aspectRatio(contentMode: .fill)
-                                .frame(width: geometry.size.width, height: geometry.size.width * 2/3)
-                                .clipped()
-                        }
                     }
                     HStack {
                         Spacer()
@@ -73,19 +66,21 @@ struct CityView: View {
                 }
             }
             .onTapGesture {
-                guard let cityInfo = cityInfo else {
+                guard let cityInfoDataModel = cityInfoDataModel else {
                     fatalError("Failed to navigate to city detail view")
                 }
-                path.append(cityInfo)
+                path.append(cityInfoDataModel)
                 appState.cityBasicInfo()
             }
-            .navigationDestination(for: CityInfo.self) { cityInfo in
-                CityDetailView(cityInfo: cityInfo)
-                //                    .navigationTitle(cityInfo.name)
+            .navigationDestination(for: CityInfoDataModel.self) { cityInfoDataModel in
+                CityDetailView(cityInfoDataModel: cityInfoDataModel)
                     .navigationBarBackButtonHidden()
-                //                    .frame(width: 600, height: 400)
-                //                    .defaultSize(CGSize(width: 600, height: 400))
             }
+        }
+        .onAppear {
+            cityInfoDataModel = cityInfoDataModelList.first(where: { cityInfoDataModel in
+                cityInfoDataModel.name?.lowercased() == cityName.lowercased()
+            }) ?? CityInfoDataModel(imageName: "", name: "", prefecture: Prefecture.tokyo)
         }
     }
 }

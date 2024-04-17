@@ -30,6 +30,7 @@ class CityInfoDataViewModel: ObservableObject {
         touristSpots: [TouristSpotDataModel],
         context: ModelContext
     ) {
+        print("--- add city info data fired ---")
         let data = CityInfoDataModel(
             imageName: cityInfoDataModel.imageName ?? "",
             name: cityInfoDataModel.name ?? "",

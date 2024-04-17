@@ -37,6 +37,7 @@ struct ContentView: View {
         case .map, .city, .cityBasicInfo, .cityPopulationTrends, .cityTouristSpots, .cityIndustry:
             Spacer()
             MapView()
+                .modelContainer(for: [CityInfoDataModel.self, TouristSpotDataModel.self])
         }
     }
 }
