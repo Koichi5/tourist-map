@@ -55,7 +55,7 @@ extension AppState {
             loadMapModel(taskGroup: &taskGroup)
             loadMapPinModels(taskGroup: &taskGroup)
             for await result in taskGroup {
-                if pins.first(where: { $0.key.rawValue == result.key }) != nil {
+                if pins.first(where: { $0.prefecture.rawValue == result.key }) != nil {
                     addMapPinEntitiesToState(result: result)
                 } else if result.key == "map" {
                     addMapEntityToState(entity: result.entity)
@@ -71,16 +71,17 @@ extension AppState {
             taskGroup.addTask {
                 do {
                     guard let pinEntity = try await self.loadFromRCPro(named: pinModelName, fromSceneNamed: pinSceneName, scaleFactor: 0.03) else {
-                        fatalError("Attempted to load piece entity \(pin.name) but failed.")
+                        fatalError("Attempted to load piece entity \(pin.prefecture.rawValue) but failed.")
                     }
                     // メインスレッド上で位置を設定するために、新しい関数を呼び出す
                     await self.setPositionForEntity(pinEntity, position: SIMD3<Float>(pin.locationX, 0.004, pin.locationZ))
                     await self.setImageBasedLightForEntity(entity: pinEntity, intensityExponent: 0.8)
                     await self.setPinsTappable(entity: pinEntity)
-                    await self.setIdentifiableComponent(entity: pinEntity, id: pin.name, displayName: pin.city.displayName)
-                    return LoadResult(entity: pinEntity, key: pin.key.rawValue)
+                    print("pin.prefecture.rawValue: \(pin.prefecture.rawValue)")
+                    await self.setIdentifiableComponent(entity: pinEntity, id: pin.prefecture.rawValue, displayName: pin.prefecture.nameInKanji())
+                    return LoadResult(entity: pinEntity, key: pin.prefecture.rawValue)
                 } catch {
-                    fatalError("Attempter to load \(pin.name)")
+                    fatalError("Attempter to load \(pin.prefecture.rawValue)")
                 }
             }
         }
@@ -115,7 +116,6 @@ extension AppState {
     // add map entity to app state
     private func addMapEntityToState(entity: Entity) {
         print("add map entity to state fired")
-        // AppState が保持している mapModel に引数で受け取った Entity を追加することができる。AppState.mapModel で他のページからアクセスすることができ、root.addChild(appState.mapModel) でルートに追加することができる。SwiftSplash も同じ仕様
         mapModel = entity
     }
     
@@ -184,12 +184,4 @@ extension AppState {
         // 入力ターゲットコンポーネントを追加
         entity.components[InputTargetComponent.self] = InputTargetComponent()
     }
-    
-//    // set entity animation
-//    @MainActor
-//    private func setAnimation(entity: Entity) async {
-//        let animation = entity.availableAnimations[0]
-//        let player = entity.playAnimation(animation.repeat(), transitionDuration: 0.25, startsPaused: true)
-//        self.animationPlayer = player
-//    }
 }

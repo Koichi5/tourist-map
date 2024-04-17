@@ -9,24 +9,14 @@ import Foundation
 
 public struct Pin: Identifiable {
     public var id: UUID
-    public var name: String
+    var prefecture: Prefecture
     public var locationX: Float
     public var locationZ: Float
-    public var key: PinKey
-    public var city: City
     
-    init(name: String, locationX: Float, locationZ: Float, key: PinKey, city: City) {
-        self.name = name
+    init(prefecture: Prefecture, locationX: Float, locationZ: Float) {
+        self.prefecture = prefecture
         self.locationX = locationX
         self.locationZ = locationZ
-        self.key = key
-        self.city = city
         self.id = UUID()
     }
 }
-
-public enum PinKey: String, CaseIterable, Codable, Sendable {
-    case tokyo = "tokyo"
-    case osaka = "osaka"
-}
-

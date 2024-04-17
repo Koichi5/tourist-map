@@ -68,6 +68,25 @@ struct MapView: View {
             if (cityInfoDataModelList.isEmpty) {
                 viewModel.add(
                     cityInfoDataModel: CityInfoDataModel(
+                        imageName: "hokkaido",
+                        name: "Hokkaido",
+                        prefecture: Prefecture.hokkaido
+                    ),
+                    touristSpots: [
+                        TouristSpotDataModel(
+                            latitude: 35.710004,
+                            longitude: 139.795121,
+                            name: "雷門",
+                            placeId: "ChIJ0YwG28aOGGARvRKAXIBWqNk",
+                            spotDescription: "東京の下町と言えば浅草。浅草寺の表参道である仲見世通りは、雷門から宝蔵門まで長さ約250mあると言われています。浅草にはそば・天ぷら・もんじゃ焼きにすき焼き…どぜう料理に洋食など、一日では食べきれないほどたくさんの老舗専門店が並んでいます。おみやげにも最適な、ビー玉、けん玉、おはじきなど伝統的なおもちゃや民芸品、風鈴や扇子など、雑貨巡りも楽しめます。現存する日本最古の遊園地「浅草花やしき」も人気です。古き良き江戸の賑わいを心ゆくまで堪能したいなら、まずは浅草に訪れて間違いはないでしょう。",
+                            thumbnailImageUrl: "https://cdn.pixabay.com/photo/2016/05/17/13/51/osaka-castle-1398116_1280.jpg"
+                        ),
+
+                    ],
+                    context: context
+                )
+                viewModel.add(
+                    cityInfoDataModel: CityInfoDataModel(
                         imageName: "tokyo",
                         name: "Tokyo",
                         prefecture: Prefecture.tokyo
