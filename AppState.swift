@@ -50,6 +50,7 @@ public class AppState {
         Pin(prefecture: Prefecture.tochigi, locationX: 0.045, locationZ: 0.025),
         Pin(prefecture: Prefecture.gunma, locationX: 0.025, locationZ: 0.025),
         Pin(prefecture: Prefecture.saitama, locationX: 0.035, locationZ: 0.045),
+        Pin(prefecture: Prefecture.tokyo, locationX: 0.043, locationZ: 0.049),
         Pin(prefecture: Prefecture.chiba, locationX: 0.055, locationZ: 0.06),
         Pin(prefecture: Prefecture.kanagawa, locationX: 0.035, locationZ: 0.055),
         Pin(prefecture: Prefecture.yamanashi, locationX: 0.02, locationZ: 0.052),
@@ -89,11 +90,6 @@ public class AppState {
         Pin(prefecture: Prefecture.miyazaki, locationX: -0.145, locationZ: 0.145),
         Pin(prefecture: Prefecture.kagoshima, locationX: -0.155, locationZ: 0.16),
         Pin(prefecture: Prefecture.okinawa, locationX: -0.165, locationZ: 0.19),
-
-        
-        // locationX: 左から右にプラス, 右から左にマイナス
-        // locationZ: 上から下にプラス, 下から上にマイナス
-        Pin(prefecture: Prefecture.tokyo, locationX: 0.043, locationZ: 0.049),
     ]
         
     init() {

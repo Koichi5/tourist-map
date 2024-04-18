@@ -18,6 +18,96 @@ struct SwiftDataSampleView: View {
             Button(action: {
                 viewModel.add(
                     cityInfoDataModel: CityInfoDataModel(
+                        imageName: "hokkaido",
+                        name: "Hokkaido",
+                        prefecture: Prefecture.hokkaido
+                    ),
+                    touristSpots: [
+                        TouristSpotDataModel(
+                            latitude: 43.061155,
+                            longitude: 141.356424,
+                            name: "札幌テレビ塔",
+                            placeId: "ChIJjWSHX50pC18RMSAiw3gaBOI",
+                            spotDescription: "さっぽろテレビ塔は北海道札幌市中央区大通西1丁目の大通公園内にある電波塔である。札幌市の中央にあり、総工費1億7000万円で1957年に完成し、同年8月24日に開業・電波の発射を開始した。高さ147.2メートル。設計者は内藤多仲。",
+                            thumbnailImageUrl: ""
+                        ),
+                    ],
+                    context: context
+                )
+                viewModel.add(
+                    cityInfoDataModel: CityInfoDataModel(
+                        imageName: "aomori",
+                        name: "Aomori",
+                        prefecture: Prefecture.aomori
+                    ),
+                    touristSpots: [
+                        TouristSpotDataModel(
+                            latitude: 40.607943,
+                            longitude: 140.463660,
+                            name: "弘前城",
+                            placeId: "ChIJW01KG8QBm18R8M5txbKLSUk",
+                            spotDescription: "弘前城は、青森県弘前市にある日本の城である。別名・鷹岡城、高岡城。江戸時代に建造された天守や櫓などが現存し国の重要文化財に指定されている。また城跡は国の史跡に指定されている。江戸時代には津軽氏が居城し弘前藩の藩庁が置かれた。",
+                            thumbnailImageUrl: ""
+                        ),
+                    ],
+                    context: context
+                )
+                viewModel.add(
+                    cityInfoDataModel: CityInfoDataModel(
+                        imageName: "akita",
+                        name: "Akita",
+                        prefecture: Prefecture.akita
+                    ),
+                    touristSpots: [
+                        TouristSpotDataModel(
+                            latitude: 39.727100,
+                            longitude: 140.665281,
+                            name: "田沢湖",
+                            placeId: "ChIJjzSdMoKJj18RISzxuUubhMI",
+                            spotDescription: "田沢湖は、秋田県仙北市にある淡水湖。一級河川雄物川水系に属する。日本で最も深い湖であり、日本で19番目に広い湖沼でもある。その全域が田沢湖抱返り県立自然公園に指定されており、日本百景にも選ばれている景勝地である。1956年から2005年まで存在した自治体である田沢湖町の名の由来であり、現在も旧田沢湖町の区域の地名冠称として使われている。",
+                            thumbnailImageUrl: ""
+                        ),
+                    ],
+                    context: context
+                )
+                viewModel.add(
+                    cityInfoDataModel: CityInfoDataModel(
+                        imageName: "iwate",
+                        name: "Iwate",
+                        prefecture: Prefecture.iwate
+                    ),
+                    touristSpots: [
+                        TouristSpotDataModel(
+                            latitude: 39.001337,
+                            longitude: 141.099898,
+                            name: "中尊寺金色堂",
+                            placeId: "ChIJ5f8N8ubNiF8R0marjOV-5cQ",
+                            spotDescription: "金色堂は中尊寺創建当初の姿を今に伝える建造物で1124年（天治元年）、奥州藤原氏初代清衡公によって上棟されました。数ある中尊寺の堂塔の中でもとりわけ意匠が凝らされ、極楽浄土の有様を具体的に表現しようとした清衡公の切実な願いによって、往時の工芸技術が集約された御堂です。",
+                            thumbnailImageUrl: ""
+                        ),
+                    ],
+                    context: context
+                )
+                viewModel.add(
+                    cityInfoDataModel: CityInfoDataModel(
+                        imageName: "yamagata",
+                        name: "Yamagata",
+                        prefecture: Prefecture.yamagata
+                    ),
+                    touristSpots: [
+                        TouristSpotDataModel(
+                            latitude: 38.569245,
+                            longitude: 140.531035,
+                            name: "銀山温泉",
+                            placeId: "ChIJ7SNY19pdiV8RIRfQXnlYhtk",
+                            spotDescription: "江戸時代の慶長年間に隆盛を極めた延沢銀山。その坑夫によって発見された温泉です。ここには大正時代の街並みが残っており、文化財級のノスタルジックな建物が軒を連ねる風景が見事",
+                            thumbnailImageUrl: ""
+                        ),
+                    ],
+                    context: context
+                )
+                viewModel.add(
+                    cityInfoDataModel: CityInfoDataModel(
                         imageName: "tokyo",
                         name: "Tokyo",
                         prefecture: Prefecture.tokyo
