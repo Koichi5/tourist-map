@@ -20,7 +20,7 @@ struct CityView: View {
     
     @Environment(\.dismissWindow) private var dismissWindow
     @Environment(AppState.self) private var appState
-        
+    
     var cityInfo: CityInfo? {
         cities.first { $0.name.lowercased() == cityName.lowercased() }
     }

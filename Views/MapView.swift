@@ -302,24 +302,6 @@ struct MapView: View {
                 )
                 viewModel.add(
                     cityInfoDataModel: CityInfoDataModel(
-                        imageName: "saitama",
-                        name: "Saitama",
-                        prefecture: Prefecture.saitama
-                    ),
-                    touristSpots: [
-                        TouristSpotDataModel(
-                            latitude: 35.925404,
-                            longitude: 138.930387,
-                            name: "三峯神社",
-                            placeId: "ChIJaWeNYVG_GGARdMc4WfTKSoA",
-                            spotDescription: "約1900年前に日本武尊によって創建された秩父三社の一つ。全国的にも珍しい“三ツ鳥居”の両脇には狛犬ならぬオオカミ像が据えられ、犬神信仰の神社として知られます。神様の氣力を分けてもらえるパワースポットとしても有名で、境内のご神木が入った“氣守”はぜひ手に入れたいアイテムです。",
-                            thumbnailImageUrl: ""
-                        ),
-                    ],
-                    context: context
-                )
-                viewModel.add(
-                    cityInfoDataModel: CityInfoDataModel(
                         imageName: "tokyo",
                         name: "Tokyo",
                         prefecture: Prefecture.tokyo
@@ -904,7 +886,6 @@ struct MapView: View {
                         imageName: "kumamoto",
                         name: "Kumamoto",
                         prefecture: Prefecture.kumamoto
-                        
                     ),
                     touristSpots: [
                         TouristSpotDataModel(
@@ -923,13 +904,12 @@ struct MapView: View {
                         imageName: "miyazaki",
                         name: "Miyazaki",
                         prefecture: Prefecture.miyazaki
-                        
                     ),
                     touristSpots: [
                         TouristSpotDataModel(
                             latitude: 32.702057,
                             longitude: 131.300885,
-                            name: "熊本城",
+                            name: "高千穂峡",
                             placeId: "ChIJLwml_t0sRzURix_JnSldeVg",
                             spotDescription: "昔、阿蘇火山活動の火砕流が五ヶ瀬川に沿って流れ出し、 急激に冷却されてできた渓谷。高さ約50～100mの柱状節理がすばらしい景色を作り出しています。「真名井の滝」はこの渓谷のシンボルで、高さ約17ｍから水面に落ちる様は圧巻。遊歩道からは3つのアーチ橋や、高千穂伝説が残る「鬼八の力石」など見どころも盛りだくさんです。",
                             thumbnailImageUrl: ""
@@ -978,8 +958,4 @@ struct MapView: View {
             }
         }
     }
-}
-
-#Preview {
-    MapView()
 }
