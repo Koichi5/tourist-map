@@ -50,24 +50,28 @@ struct MapView: View {
             }
         }
         .ornament(attachmentAnchor: .scene(.bottom)) {
-            Button {
-                isSearchFieldShown.toggle()
-                appState.updateEntityVisibility(for: "")
-            } label: {
-                isSearchFieldShown ? HStack {
-                    Image(systemName: "xmark")
-                    Text("やめる")
-                } :
-                HStack {
-                    Image(systemName: "magnifyingglass")
-                    Text("検索")
+            HStack {
+                Button {
+                    isSearchFieldShown.toggle()
+                    appState.updateEntityVisibility(for: "")
+                } label: {
+                    isSearchFieldShown ? HStack {
+                        Image(systemName: "xmark")
+                        Text("やめる")
+                    } :
+                    HStack {
+                        Image(systemName: "magnifyingglass")
+                        Text("検索")
+                    }
                 }
-            }
-            Button {
-                openWindow(id: ViewID.settingsView)
-            } label: {
-                Image(systemName: "gearshape")
-                Text("設定")
+                Button {
+                    openWindow(id: ViewID.settingsView)
+                } label: {
+                    HStack {
+                        Image(systemName: "gearshape")
+                        Text("設定")
+                    }
+                }
             }
         }
         .onAppear {
@@ -85,7 +89,7 @@ struct MapView: View {
                             name: "札幌テレビ塔",
                             placeId: "ChIJjWSHX50pC18RMSAiw3gaBOI",
                             spotDescription: "さっぽろテレビ塔は北海道札幌市中央区大通西1丁目の大通公園内にある電波塔である。札幌市の中央にあり、総工費1億7000万円で1957年に完成し、同年8月24日に開業。高さ147.2メートル。設計者は内藤多仲。",
-                            thumbnailImageUrl: ""
+                            thumbnailImageUrl: "https://photock.jp/photo/big_webp/photo0000-7045.webp"
                         ),
                     ],
                     context: context
@@ -103,7 +107,7 @@ struct MapView: View {
                             name: "弘前城",
                             placeId: "ChIJW01KG8QBm18R8M5txbKLSUk",
                             spotDescription: "弘前城は、青森県弘前市にある日本の城である。別名・鷹岡城、高岡城。江戸時代に建造された天守や櫓などが現存し国の重要文化財に指定されている。また城跡は国の史跡に指定されている。江戸時代には津軽氏が居城し弘前藩の藩庁が置かれた。",
-                            thumbnailImageUrl: ""
+                            thumbnailImageUrl: "https://cdn.pixabay.com/photo/2019/10/31/07/56/landscape-4591248_1280.jpg"
                         ),
                     ],
                     context: context
@@ -157,7 +161,7 @@ struct MapView: View {
                             name: "銀山温泉",
                             placeId: "ChIJ7SNY19pdiV8RIRfQXnlYhtk",
                             spotDescription: "江戸時代の慶長年間に隆盛を極めた延沢銀山。その坑夫によって発見された温泉です。ここには大正時代の街並みが残っており、文化財級のノスタルジックな建物が軒を連ねる風景が見事",
-                            thumbnailImageUrl: ""
+                            thumbnailImageUrl: "https://cdn.pixabay.com/photo/2016/05/02/09/45/japan-1366872_1280.jpg"
                         ),
                     ],
                     context: context
@@ -175,7 +179,7 @@ struct MapView: View {
                             name: "松島",
                             placeId: "ChIJub4rDwqbiV8RaFDRfXMdg4c",
                             spotDescription: "平安時代より多くの歌に詠まれ、中世には霊場として栄えた松島。日本三景の一つに数えられる景勝地で、松尾芭蕉の「おくの細道」でも有名です。湾に浮かぶ約260の島々を一望できる4か所の展望名所「四大観」、岬の丘にある「双観山」、湾内すべてを正面から見渡せる「新富山」など、見事な眺望を楽しめるスポットが数多くあります。",
-                            thumbnailImageUrl: ""
+                            thumbnailImageUrl: "https://cdn.pixabay.com/photo/2016/12/10/04/52/tohoku-1896660_1280.jpg"
                         ),
                     ],
                     context: context
@@ -193,7 +197,7 @@ struct MapView: View {
                             name: "大内宿",
                             placeId: "ChIJsRZu4rH8H2ARMPL0O-FTKWI",
                             spotDescription: "大内宿は、江戸時代には会津西街道(別称下野街道)の「半農半宿」の宿場であった福島県南会津郡下郷町大字大内にある旧宿場。重要伝統的建造物群保存地区として選定されている",
-                            thumbnailImageUrl: ""
+                            thumbnailImageUrl: "https://cdn.pixabay.com/photo/2018/05/07/05/13/ouchi-juku-3380117_1280.jpg"
                         ),
                     ],
                     context: context
@@ -229,7 +233,7 @@ struct MapView: View {
                             name: "国営ひたち海浜公園",
                             placeId: "ChIJQURehB2LIWAR4fDmA-odfnY",
                             spotDescription: "公園としてはもちろん、花の名所として県内外の人々に親しまれています。春はスイセンから始まり、カラフルなチューリップ、みはらしの丘をライトブルーに染め上げるネモフィラと続きます。夏にはラベンダー、ヒマワリなど。秋もバラやコスモス、紅葉する草コキアなど。一年を通してイベントも豊富です",
-                            thumbnailImageUrl: ""
+                            thumbnailImageUrl: "https://cdn.pixabay.com/photo/2017/03/31/07/47/chiba-2190623_1280.jpg"
                         ),
                     ],
                     context: context
@@ -265,7 +269,7 @@ struct MapView: View {
                             name: "草津温泉",
                             placeId: "ChIJ7brFG1XmHWARqx4K0Be5o9k",
                             spotDescription: "日本三名泉のひとつであり、自然湧出量は日本一の毎分3万2,300リットルを誇る草津温泉。「湯畑」はその温泉街の中心部にあり、毎分4,000リットルの温泉から白い湯煙をもうもうと上げて湧き出す様が圧巻。湯畑の周りには瓦を敷き詰めた遊歩道や石柵、白根山を象った白根山ベンチなどがあり、ライトアップされる夜の眺めも幻想的です。",
-                            thumbnailImageUrl: ""
+                            thumbnailImageUrl: "https://cdn.pixabay.com/photo/2016/05/20/12/44/kusatsu-1404992_1280.jpg"
                         ),
                     ],
                     context: context
@@ -283,7 +287,7 @@ struct MapView: View {
                             name: "東京ディズニーランド",
                             placeId: "ChIJszdHEQN9GGARy9MJ1TY22eQ",
                             spotDescription: "子供から大人まで楽しめるディズニーのテーマパーク。高さ約51メートルのシンデレラ城をシンボルに、7つのテーマランドで構成されています。多彩なアトラクションをはじめ、期間限定のスペシャルイベントやパレード、ステージショーなど充実のエンターテインメントも魅力です。",
-                            thumbnailImageUrl: ""
+                            thumbnailImageUrl: "https://cdn.pixabay.com/photo/2016/01/20/05/50/disney-land-1150973_1280.jpg"
                         ),
                     ],
                     context: context
@@ -319,7 +323,7 @@ struct MapView: View {
                             name: "雷門",
                             placeId: "ChIJ0YwG28aOGGARvRKAXIBWqNk",
                             spotDescription: "東京の下町と言えば浅草。浅草寺の表参道である仲見世通りは、雷門から宝蔵門まで長さ約250mあると言われています。浅草にはそば・天ぷら・もんじゃ焼きにすき焼き…どぜう料理に洋食など、一日では食べきれないほどたくさんの老舗専門店が並んでいます。おみやげにも最適な、ビー玉、けん玉、おはじきなど伝統的なおもちゃや民芸品、風鈴や扇子など、雑貨巡りも楽しめます。現存する日本最古の遊園地「浅草花やしき」も人気です。古き良き江戸の賑わいを心ゆくまで堪能したいなら、まずは浅草に訪れて間違いはないでしょう。",
-                            thumbnailImageUrl: "https://cdn.pixabay.com/photo/2016/05/17/13/51/osaka-castle-1398116_1280.jpg"
+                            thumbnailImageUrl: "https://cdn.pixabay.com/photo/2017/06/26/10/24/tokyo-2443311_1280.jpg"
                         ),
                         TouristSpotDataModel(
                             latitude: 35.710015,
@@ -327,7 +331,7 @@ struct MapView: View {
                             name: "東京スカイツリー",
                             placeId: "ChIJ35ov0dCOGGARKvdDH7NPHX0",
                             spotDescription: "高さ634mを誇る自立式電波塔、「東京スカイツリー」。地上350mの天望デッキからは東京の景色が堪能できることはもちろん、富士山を見られることもあります。そのふもとには300以上の店舗が入る商業施設「東京ソラマチ」があり、国内外の観光客が多く訪れています。",
-                            thumbnailImageUrl: "https://cdn.pixabay.com/photo/2016/05/17/13/51/osaka-castle-1398116_1280.jpg"
+                            thumbnailImageUrl: "https://cdn.pixabay.com/photo/2018/11/20/16/30/tokyo-sky-tree-3827717_1280.jpg"
                         ),
                         TouristSpotDataModel(
                             latitude: 35.715795,
@@ -335,7 +339,7 @@ struct MapView: View {
                             name: "上野動物園",
                             placeId: "ChIJf2129yiMGGAR9I6Yoe-1uHY",
                             spotDescription: "「上野動物園」は、1882年に開園した、日本で最も歴史の長い動物園です。日中国交回復を記念し、1972年に日本で初めて中国からジャイアントパンダを受け入れた動物園でもあり、現在もパンダは園の人気者です。2020年9月には、園内の東園にあるパンダ舎とは別に、西園でもパンダが見られる「パンダのもり」ができました。ほかの動物たちも、生息地を再現した環境で展示されており、水中を泳ぐホッキョクグマや冬眠中のクマも見られます。",
-                            thumbnailImageUrl: "https://cdn.pixabay.com/photo/2016/05/17/13/51/osaka-castle-1398116_1280.jpg"
+                            thumbnailImageUrl: ""
                         )
                     ],
                     context: context
@@ -353,7 +357,7 @@ struct MapView: View {
                             name: "横浜赤レンガ倉庫",
                             placeId: "ChIJSXGAhfhcGGARcz3MKth9lJQ",
                             spotDescription: "実際に倉庫として使われていた建物をショッピングモールとして活用している「赤レンガ倉庫」。港町横浜ならではの景観が楽しめるスポットとして大人気。おしゃれなショップやレストランがたくさん集まっています。",
-                            thumbnailImageUrl: ""
+                            thumbnailImageUrl: "https://photock.jp/photo/big_webp/photo0000-7661.webp"
                         ),
                     ],
                     context: context
@@ -371,7 +375,7 @@ struct MapView: View {
                             name: "河口湖",
                             placeId: "ChIJTz8EpbRfGWARR30zHkuyyyk",
                             spotDescription: "富士五湖のひとつに数えられる河口湖は、五湖の中で最も長い湖岸線を持ちます。河口湖大橋から眺める富士山は絶景として有名。",
-                            thumbnailImageUrl: ""
+                            thumbnailImageUrl: "https://cdn.pixabay.com/photo/2015/07/17/12/24/reflection-849159_1280.jpg"
                         ),
                     ],
                     context: context
@@ -407,7 +411,7 @@ struct MapView: View {
                             name: "熱海サンビーチ",
                             placeId: "ChIJVd9Upy2_GWARfIDGzmBDBh4",
                             spotDescription: "男女、宗派にこだわらず常にあらゆる信徒を受け入れ、庶民からの信仰を集めた寺。川中島の合戦では上杉謙信が本陣を構えたとされる場所でもあります。江戸時代には「一生に一度は善光寺参り」という言葉があるように、全国から多くの人が訪れました。「撞木造」という構造を持つ本堂は東日本最大規模の仏教建築で、国宝にも指定。",
-                            thumbnailImageUrl: ""
+                            thumbnailImageUrl: "https://photock.jp/photo/big_webp/photo0000-7903.webp"
                         ),
                     ],
                     context: context
@@ -425,7 +429,7 @@ struct MapView: View {
                             name: "黒部ダム",
                             placeId: "ChIJB7x2Jpru918RXnjJFJb9E94",
                             spotDescription: "昭和38年に完成した日本最大級のアーチ式ダム。世紀の大事業ともいわれるその建設は、石原裕次郎主演の映画「黒部の太陽」で描かれたことでも有名です。初夏から秋には観光放水も行われ、日本一を誇る高さから水煙を上げて水が流れ落ちる様は大迫力。",
-                            thumbnailImageUrl: ""
+                            thumbnailImageUrl: "https://cdn.pixabay.com/photo/2018/09/26/10/22/kurobe-dam-3704233_1280.jpg"
                         ),
                     ],
                     context: context
@@ -443,7 +447,7 @@ struct MapView: View {
                             name: "白川郷",
                             placeId: "ChIJ5yW_trBx-F8R-AVYnbtRxcw",
                             spotDescription: "大自然に囲まれた日本有数の豪雪地帯に、数百年の時を刻む合掌造りの建物が100棟余り現存。1995年に世界文化遺産にも登録された全国最大規模の合掌集落です。現在も実生活の場として住民が暮らすなか、国指定重要文化財の和田家など内部見学が可能な施設も多数点在。1月中旬～2月上旬の積雪シーズンには合掌集落の幻想的なライトアップも開催。",
-                            thumbnailImageUrl: ""
+                            thumbnailImageUrl: "https://cdn.pixabay.com/photo/2018/03/07/02/41/japan-3205106_1280.jpg"
                         ),
                     ],
                     context: context
@@ -461,7 +465,7 @@ struct MapView: View {
                             name: "兼六園",
                             placeId: "ChIJBVmy-YMz-F8R5PID8D17Cpc",
                             spotDescription: "加賀歴代藩主により長い年月をかけて形作られた、江戸時代の代表的な回遊式庭園。国の特別名勝に指定される日本三名園のひとつでもあり、10万平方メートルを越える敷地には池や滝があり、曲水が造られ、四季折々の風情が楽しめます。",
-                            thumbnailImageUrl: ""
+                            thumbnailImageUrl: "https://cdn.pixabay.com/photo/2017/10/30/12/12/japan-2902290_1280.jpg"
                         ),
                     ],
                     context: context
@@ -497,7 +501,7 @@ struct MapView: View {
                             name: "名古屋城",
                             placeId: "ChIJse-wx8t2A2ARd6Z1knjp07k",
                             spotDescription: "1612（慶長17）年に築城された名古屋のシンボル。戦災で焼失しましたが、1959（昭和34）年には、金のシャチをいただく五層の大天守閣と小天守閣が再建。2018年6月には、格式高い書院造の「湯殿書院」や豪華絢爛な「上洛殿」が見ごたえたっぷりの本丸御殿が完全公開。現代の絵師によって復元された400年前の障壁画は、息を呑む美しさです。",
-                            thumbnailImageUrl: ""
+                            thumbnailImageUrl: "https://cdn.pixabay.com/photo/2021/12/22/16/06/japan-6887875_1280.jpg"
                         ),
                     ],
                     context: context
@@ -515,7 +519,7 @@ struct MapView: View {
                             name: "比叡山延暦寺",
                             placeId: "ChIJMyzNoxsKAWARlcl_aAD9XZA",
                             spotDescription: "伝教大師・最澄が開いた天台宗の総本山「比叡山延暦寺」。東塔（とうどう）、西塔（さいとう）、横川（よかわ）の三塔十六谷からなり、数百のお堂や伽藍が点在しています。眼下に琵琶湖を望み、西には古都京都を一望できる景勝地でもあり、1200年の歴史と伝統が高く評価され、ユネスコ世界文化遺産にも登録されています。比叡山の山中には、ケーブルカーやドライブウェイが整備されており、諸堂拝観はもとより、自然散策や史蹟探訪も気軽に楽しめます。",
-                            thumbnailImageUrl: ""
+                            thumbnailImageUrl: "https://cdn.pixabay.com/photo/2018/10/25/23/18/kyoto-3773669_1280.jpg"
                         ),
                     ],
                     context: context
@@ -533,7 +537,7 @@ struct MapView: View {
                             name: "伊勢神宮",
                             placeId: "ChIJ8zef3-tQBGARpwz2UzdmCfA",
                             spotDescription: "「お伊勢さん」「大神宮さん」と親しまれる「伊勢神宮」は、伊勢市と周辺に鎮座する125社の総称です。その中心となるのが「内宮（皇大神宮）」と、「外宮（豊受大神宮）」。内宮は国民の総氏神である天照大御神（あまてらすおおみかみ）を祀り、約2000年もの歴史があります。唯一神明造の御正殿ほか格式ある別宮も多彩です。",
-                            thumbnailImageUrl: ""
+                            thumbnailImageUrl: "https://cdn.pixabay.com/photo/2017/09/25/10/05/japan-2784570_1280.jpg"
                         ),
                     ],
                     context: context
@@ -551,7 +555,7 @@ struct MapView: View {
                             name: "東大寺",
                             placeId: "ChIJ3XYIepA5AWARjzzVnT-skPg",
                             spotDescription: "仏教中心の国づくりを進めた聖武天皇の勅願により743年に建立された「東大寺」。各地に建立された国分寺の中心をなす総国分寺と位置付けられました。「奈良の大仏」として知られる盧舎那仏（るしゃなぶつ）を本尊とし、大仏殿は世界最大級の木造建築。大仏殿の内部には、大仏の鼻と同じ大きさの穴が空いた柱があり、くぐると無病息災のご利益があるといわれます。",
-                            thumbnailImageUrl: ""
+                            thumbnailImageUrl: "https://cdn.pixabay.com/photo/2014/11/28/02/12/todaiji-548415_1280.jpg"
                         ),
                     ],
                     context: context
@@ -569,7 +573,7 @@ struct MapView: View {
                             name: "和歌山城",
                             placeId: "ChIJxdJgocGyAGARk2yAa2IxAOE",
                             spotDescription: "築城の名人・藤堂高虎が作り上げ、江戸時代には紀州55万5千石の城となり、徳川御三家のひとつとして長い歴史を刻んできました。こんもりと緑茂る虎伏山（とらふすやま）に白亜の天守閣がそびえ、御三家の威容にふさわしい風格。石垣には紀州特産の青石が多く使われており、時代によって異なる石垣の積み方が見られます。",
-                            thumbnailImageUrl: ""
+                            thumbnailImageUrl: "https://cdn.pixabay.com/photo/2017/04/17/05/44/wakayama-castle-2236563_1280.jpg"
                         ),
                     ],
                     context: context
@@ -587,7 +591,7 @@ struct MapView: View {
                             name: "清水寺",
                             placeId: "ChIJB_vchdMIAWARujTEUIZlr2I",
                             spotDescription: "世界遺産に登録されている、京都を代表する観光名所「清水寺（きよみずでら）」。音羽山中腹の三重塔、清水の舞台で知られる本堂、奥の院などが、壮大な伽藍を形作っています。崖の上に造られた舞台を支える柱には、釘が1本も使われていないというから驚きです。その清水の舞台から望む京都市街の絶景は必見！ それだけでなく、春の桜、初夏の新緑、秋の紅葉と、1年を通して多くの観光客を魅了する美しい風景が広がります。",
-                            thumbnailImageUrl: ""
+                            thumbnailImageUrl: "https://cdn.pixabay.com/photo/2017/01/13/07/41/temple-1976543_1280.jpg"
                         ),
                     ],
                     context: context
@@ -613,7 +617,7 @@ struct MapView: View {
                             name: "ユニバーサル・スタジオ・ジャパン",
                             placeId: "ChIJXeLVg9DgAGARqlIyMCX-BTY",
                             spotDescription: "ユニバーサル・スタジオ・ジャパンは、スティーヴン・スピルバーグがクリエイティブ総監督を務めたダイナミックな世界観が人気のテーマパーク。盛りだくさんのアトラクションやライド、ショーに、小さな子供から大人まで誰でも夢中になるはず。",
-                            thumbnailImageUrl: "https://cdn.pixabay.com/photo/2016/05/17/13/51/osaka-castle-1398116_1280.jpg"
+                            thumbnailImageUrl: "https://cdn.pixabay.com/photo/2020/04/20/10/16/hogwarts-5067655_1280.jpg"
                         ),
                         TouristSpotDataModel(
                             latitude: 34.652490,
@@ -621,7 +625,7 @@ struct MapView: View {
                             name: "通天閣",
                             placeId: "ChIJ_0Lgd2DnAGARV0X03lbPy-U",
                             spotDescription: "浪速区の歓楽街「新世界」にそびえ立つ通天閣は、エネルギッシュな大阪の下町を象徴する存在です。高さ103メートルの通天閣にある展望台からは、大阪の街を一望することができます。",
-                            thumbnailImageUrl: "https://cdn.pixabay.com/photo/2016/05/17/13/51/osaka-castle-1398116_1280.jpg"
+                            thumbnailImageUrl: "https://cdn.pixabay.com/photo/2020/11/06/22/56/tower-5719067_1280.jpg"
                         )
                     ],
                     context: context
@@ -658,7 +662,7 @@ struct MapView: View {
                             name: "鳥取砂丘",
                             placeId: "ChIJbx8cHUSPVTURazEAdQKsetg",
                             spotDescription: "南北2.4キロメートル、東西16キロメートルに広がる日本最大級の砂丘。その中心部は海岸砂丘として国内で唯一天然記念物に指定されています。最大高低差約90メートルもの圧倒的な景観や、風と砂が織りなす風紋・砂柱などの造形美はもちろん、らくだ遊覧やサンドボードなど砂丘ならではのアクティビティも感動的な楽しさです。",
-                            thumbnailImageUrl: ""
+                            thumbnailImageUrl: "https://cdn.pixabay.com/photo/2023/05/20/14/29/dunes-8006655_1280.jpg"
                         ),
                     ],
                     context: context
@@ -676,7 +680,7 @@ struct MapView: View {
                             name: "出雲大社",
                             placeId: "ChIJPRlWKpRcVzUR74S6_K5qanA",
                             spotDescription: "因幡の白兎や国譲り神話の主人公、大国主大神を祀る古社。縁結びの神、福の神としても親しまれ、全国から大勢の参拝者が訪れます。1744年に建てられた本殿は、日本で最も古い神社建築の大社造りで、2013年には60年ぶりの「平成の大遷宮」も行われました。毎年旧暦10月には八百万の神々が、ここ出雲に集まるといわれています。",
-                            thumbnailImageUrl: ""
+                            thumbnailImageUrl: "https://cdn.pixabay.com/photo/2016/05/20/15/28/izumo-1405172_1280.jpg"
                         ),
                     ],
                     context: context
@@ -712,7 +716,7 @@ struct MapView: View {
                             name: "厳島神社",
                             placeId: "ChIJj23HfgTjGmARkNW10PcocjU",
                             spotDescription: "日本三景のひとつに数えられる「宮島」。島内の「嚴島（いつくしま）神社」や「弥山（みせん）原始林」などは、世界文化遺産に登録されています。自然あふれる宮島には野生動物も多く住み、ニホンジカやタヌキ、野鳥などが。また、グルメも宮島観光ではずせません。名物・もみじ饅頭はもちろん、宮島二大グルメの牡蠣とあなごは必食！",
-                            thumbnailImageUrl: ""
+                            thumbnailImageUrl: "https://cdn.pixabay.com/photo/2019/02/02/04/59/o-torii-3970153_1280.jpg"
                         ),
                     ],
                     context: context
@@ -730,7 +734,7 @@ struct MapView: View {
                             name: "角島大橋",
                             placeId: "ChIJlyxJOY8TQzURdl2pDhhvhZQ",
                             spotDescription: "2000年11月3日に開通した角島観光のシンボル的存在。コバルトブルーの海や、途中に浮かぶ小さな鳩島、角島などの風光明媚な絶景は、映画やCMのロケ地としても有名です。また、通行料金無料の離島架橋としては日本屈指の長さ（全長1,780メートル）を誇ります。",
-                            thumbnailImageUrl: ""
+                            thumbnailImageUrl: "https://cdn.pixabay.com/photo/2015/11/07/05/28/japan-1030464_1280.jpg"
                         ),
                     ],
                     context: context
@@ -816,7 +820,6 @@ struct MapView: View {
                         imageName: "fukuoka",
                         name: "Fukuoka",
                         prefecture: Prefecture.fukuoka
-                        
                     ),
                     touristSpots: [
                         TouristSpotDataModel(
@@ -825,7 +828,7 @@ struct MapView: View {
                             name: "太宰府天満宮",
                             placeId: "ChIJzfvrKp-bQTURl65fp6vRJLg",
                             spotDescription: "観光の中心となる「太宰府天満宮」は、学問の神様として有名な菅原道真公が祀られており、境内には、軍師官兵衛が晩年を過ごした「如水社」や、幕末に商人から寄付された「麒麟像」など、歴史を感じられるスポットが多数あります。",
-                            thumbnailImageUrl: ""
+                            thumbnailImageUrl: "https://cdn.pixabay.com/photo/2014/11/27/08/29/dazaifu-547283_1280.jpg"
                         ),
                     ],
                     context: context
@@ -900,7 +903,7 @@ struct MapView: View {
                             name: "熊本城",
                             placeId: "ChIJWco6Ag70QDURMOTNdshmi14",
                             spotDescription: "江戸時代の初め、加藤清正が当時の最先端の技術を投入して築いた城で、以来熊本のシンボル的存在。別名「銀杏城」と呼ばれ、特に優美な石垣が有名です。2016年の熊本地震による損壊の復旧は令和19年ごろまでかかるといわれていますが、二の丸広場や加藤神社から天守閣を見ることができ、現在も観光名所として国内外から多くの人が訪れます。",
-                            thumbnailImageUrl: ""
+                            thumbnailImageUrl: "https://cdn.pixabay.com/photo/2013/05/31/16/12/castle-115034_1280.jpg"
                         ),
                     ],
                     context: context
@@ -937,7 +940,7 @@ struct MapView: View {
                             name: "桜島",
                             placeId: "ChIJl-1qAHL1PjURlI5hzxStZZc",
                             spotDescription: "鹿児島のシンボルである「桜島」は、錦江湾にある陸続きの島。標高約1,117メートルの御岳（北岳）という活火山が、現在も活発に噴火を続けています。散策に適した溶岩遊歩道の途中には、絶景を望める展望所も複数完備。海沿いの露天風呂を楽しめる「古里温泉郷」や、錦江湾を見晴らせる日本最大級の足湯などもあり、観光スポットが盛りだくさんです。",
-                            thumbnailImageUrl: ""
+                            thumbnailImageUrl: "https://cdn.pixabay.com/photo/2015/07/15/16/18/sakura-jima-846461_1280.jpg"
                         ),
                     ],
                     context: context

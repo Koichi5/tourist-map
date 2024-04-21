@@ -40,7 +40,3 @@ struct ModelLoadingView: View {
         }
     }
 }
-
-#Preview {
-    ModelLoadingView()
-}

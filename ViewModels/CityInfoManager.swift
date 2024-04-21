@@ -16,7 +16,6 @@ class CityInfoManager: Observable {
     private init() {}
 
     func fetchCityInfo(
-//        with parameters: [String: String],
         completion: @escaping (Result<String, Error>) -> Void) {
         /// 人口構成API https://opendata.resas-portal.go.jp/docs/api/v1/population/composition/perYear.html
             let components = URLComponents(string: "https://opendata.resas-portal.go.jp/api/v1/population/composition/perYear?cityCode=11362&prefCode=11")!

@@ -9,8 +9,6 @@ import SwiftUI
 import SwiftData
 
 class CityInfoDataViewModel: ObservableObject {
-    // MARK: Define ``@Query private var cityInfoDataModelList: [CityInfoDataModel]`` to fetch stored CityInfoDataModel list.
-//    @Environment(\.modelContext) private var context
     @Published var cityInfoDataModelList: [CityInfoDataModel]
     
     init() {
@@ -30,7 +28,6 @@ class CityInfoDataViewModel: ObservableObject {
         touristSpots: [TouristSpotDataModel],
         context: ModelContext
     ) {
-        print("--- add city info data fired ---")
         let data = CityInfoDataModel(
             imageName: cityInfoDataModel.imageName ?? "",
             name: cityInfoDataModel.name ?? "",

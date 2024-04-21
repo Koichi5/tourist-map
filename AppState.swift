@@ -17,10 +17,6 @@ public class AppState {
     
     var isImmersiveViewShown = false
     
-    // Cityの「産業」タブ
-    var isCityIndustryShown = false
-    var isPrimaryIndustryDataShown = true
-    
     var pinTemplates = [Entity]()
     
     public var defaultPinScale = SIMD3<Float>(0.03, 0.03, 0.03)
@@ -35,8 +31,6 @@ public class AppState {
     public var animationPlayer: AnimationPlaybackController?
     
     public var pins = [
-        // locationX: 左から右にプラス
-        // locationZ: 上から下にプラス
         Pin(prefecture: Prefecture.hokkaido, locationX: 0.10, locationZ: -0.16),
         Pin(prefecture: Prefecture.aomori, locationX: 0.07, locationZ: -0.09),
         Pin(prefecture: Prefecture.iwate, locationX: 0.08, locationZ: -0.06),
@@ -89,7 +83,7 @@ public class AppState {
         Pin(prefecture: Prefecture.kumamoto, locationX: -0.16, locationZ: 0.14),
         Pin(prefecture: Prefecture.miyazaki, locationX: -0.145, locationZ: 0.145),
         Pin(prefecture: Prefecture.kagoshima, locationX: -0.155, locationZ: 0.16),
-        Pin(prefecture: Prefecture.okinawa, locationX: -0.165, locationZ: 0.19),
+        Pin(prefecture: Prefecture.okinawa, locationX: -0.18, locationZ: 0.22),
     ]
         
     init() {

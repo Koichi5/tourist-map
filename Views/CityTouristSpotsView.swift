@@ -37,26 +37,40 @@ struct CityTouristSpotsView: View {
         return LazyVGrid(columns: columns, spacing: spacing) {
             ForEach(touristSpots, id: \.name) { spot in
                 VStack(alignment: .leading) {
-                    if let url = imageManager.makeImageUrl(photoReference: imageManager.photoReferences.first ?? "") {
-                        AsyncImage(url: url) { image in
+                    if (spot.thumbnailImageUrl != "") {
+                        AsyncImage(url: URL(string: spot.thumbnailImageUrl!)) { image in
                             image
                                 .resizable()
-                                .scaledToFit()
-                                .cornerRadius(20)
+                                .scaledToFill()
                                 .frame(width: adjustedWidth, height: adjustedWidth * 2/3)
+                                .cornerRadius(20)
+                                .clipped()
                         } placeholder: {
                             ProgressView()
                         }
+                    } else {
+                        SpotThumbnailView(placeId: spot.placeId ?? "", adjustedWidth: adjustedWidth)
                     }
+//                    if let url = imageManager.makeImageUrl(photoReference: imageManager.photoReferences.first ?? "") {
+//                        AsyncImage(url: url) { image in
+//                            image
+//                                .resizable()
+//                                .scaledToFill()
+//                                .frame(width: adjustedWidth, height: adjustedWidth * 2/3)
+//                                .cornerRadius(20)
+//                                .clipped()
+//                        } placeholder: {
+//                            ProgressView()
+//                        }
+//                    }
                     Text(spot.name ?? "")
                         .lineLimit(1)
                         .padding()
                     Spacer()
                 }
-                .onAppear {
-//                    imageManager.fetchLandscapePhotoReferences(placeId: spot.placeId ?? "")
-                    imageManager.fetchPhotoReferences(placeId: spot.placeId ?? "")
-                }
+//                .onAppear {
+//                    imageManager.fetchPhotoReferences(placeId: spot.placeId ?? "")
+//                }
                 .padding(.bottom, 10)
                 .onTapGesture {
                     path.append(spot)

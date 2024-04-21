@@ -10,6 +10,8 @@ import SwiftUI
 struct CityDetailView: View {
     let cityInfoDataModel: CityInfoDataModel
     @Environment(AppState.self) private var appState
+    @Environment(\.dismissWindow) private var dismissWindow
+    
     @ObservedObject var populationViewModel = PopulationManager()
     @State private var selectedCityDetailInfo: CityDetailInfoMenu? = .basicInfo
     
@@ -37,6 +39,14 @@ struct CityDetailView: View {
                 )
             case nil:
                 Text("データの読み込みに失敗しました")
+            }
+        }
+        .ornament(attachmentAnchor: .scene(.bottom)) {
+            Button {
+                dismissWindow(id: ViewID.cityView)
+            } label: {
+                Image(systemName: "xmark")
+                Text("閉じる")
             }
         }
         .onAppear {

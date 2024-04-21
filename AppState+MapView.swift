@@ -22,7 +22,6 @@ extension AppState {
                 
                 if searchText.isEmpty {
                     entity.isEnabled = true
-                    // デフォルトのピンの大きさ
                     entity.scale = self.defaultPinScale
                 } else {
                     // searchTextによるフィルタリング（現在キーボードは日本語対応していないが、displayName 検索にも対応）

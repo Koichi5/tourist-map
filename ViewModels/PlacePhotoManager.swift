@@ -16,8 +16,9 @@ class PlacePhotoManager: ObservableObject {
 
     func fetchPhotoReferences(placeId: String) {
         print("----- fetch images fired -----")
-        if (apiKey != nil) {
-            guard let url = URL(string: "https://maps.googleapis.com/maps/api/place/details/json?placeid=\(placeId)&key=\(apiKey!)") else {
+        if let apiKey = apiKey {
+            let urlString = "https://maps.googleapis.com/maps/api/place/details/json?placeid=\(placeId)&fields=photos&key=\(apiKey)"
+            guard let url = URL(string: urlString) else {
                 print("Invalid URL")
                 return
             }
@@ -31,12 +32,14 @@ class PlacePhotoManager: ObservableObject {
                 .receive(on: DispatchQueue.main)
                 .assign(to: \.photoReferences, on: self)
                 .store(in: &cancellables)
+        } else {
+            print("API Key is missing")
         }
     }
     
     func fetchLandscapePhotoReferences(placeId: String) {
         print("----- fetch landscape images fired -----")
-        if let apiKey = apiKey, let url = URL(string: "https://maps.googleapis.com/maps/api/place/details/json?placeid=\(placeId)&key=\(apiKey)") {
+        if let apiKey = apiKey, let url = URL(string: "https://maps.googleapis.com/maps/api/place/details/json?placeid=\(placeId)&fields=photos&key=\(apiKey)") {
             URLSession.shared.dataTaskPublisher(for: url)
                 .map { $0.data }
                 .decode(type: PlaceDetailsResponse.self, decoder: JSONDecoder())
@@ -53,7 +56,26 @@ class PlacePhotoManager: ObservableObject {
             print("Invalid API key or URL")
         }
     }
+    
+    func fetchFirstPhotoReference(placeId: String, completion: @escaping (String?) -> Void) {
+        print("----- fetchFirstPhotoReference fired -----")
+        guard let apiKey = apiKey, let url = URL(string: "https://maps.googleapis.com/maps/api/place/details/json?placeid=\(placeId)&fields=photos&key=\(apiKey)") else {
+            print("Invalid URL")
+            completion(nil)
+            return
+        }
 
+        URLSession.shared.dataTaskPublisher(for: url)
+            .map { $0.data }
+            .decode(type: PlaceDetailsResponse.self, decoder: JSONDecoder())
+            .map { response -> String? in
+                return response.result.photos?.first?.photoReference
+            }
+            .replaceError(with: nil)
+            .receive(on: DispatchQueue.main)
+            .sink(receiveValue: completion)
+            .store(in: &cancellables)
+    }
     
     func makeImageUrl(photoReference: String, maxWidth: Int = 1200) -> URL? {
         print("----- make image url fired -----")
@@ -62,5 +84,18 @@ class PlacePhotoManager: ObservableObject {
             return URL(string: urlString)
         }
         return nil
+    }
+    
+    func fetchImageUrlFromPlaceId(placeId: String, completion: @escaping (URL?) -> Void) {
+        print("----- fetchImageUrlFromPlaceId fired -----")
+        fetchFirstPhotoReference(placeId: placeId) { [weak self] photoReference in
+            guard let photoReference = photoReference else {
+                print("No photo reference found.")
+                completion(nil)
+                return
+            }
+            let url = self?.makeImageUrl(photoReference: photoReference)
+            completion(url)
+        }
     }
 }

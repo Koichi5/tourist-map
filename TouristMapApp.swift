@@ -49,12 +49,6 @@ struct TouristMapApp: App {
         WindowGroup(id: ViewID.lookAroundView, for: TouristSpotDataModel.self) { value in
             LookAroundView(touristSpot: value.wrappedValue!)
         }
-        
-        ImmersiveSpace(id: ViewID.immersive) {
-            ImmersiveView()
-                .environment(appState)
-        }
-        .immersionStyle(selection: .constant(.full), in: .full)
     }
 }
 
