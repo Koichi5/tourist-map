@@ -7,21 +7,21 @@
 
 import Foundation
 
-// APIレスポンス全体を表す構造体
 struct PlaceDetailsResponse: Decodable {
     let result: PlaceResult
 }
 
-// "result" キーの内容を表す構造体
 struct PlaceResult: Decodable {
     let photos: [Photo]?
 }
 
-// "photos" キー内の個々のデータを表す構造体
 struct Photo: Decodable {
     let photoReference: String
+    let height: Int
+    let width: Int
 
     enum CodingKeys: String, CodingKey {
         case photoReference = "photo_reference"
+        case height, width
     }
 }

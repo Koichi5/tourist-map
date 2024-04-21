@@ -21,7 +21,7 @@ struct ModelLoadingView: View {
             // edit scale
             entity.scale = SIMD3<Float>(repeating: 0.02)
             
-//            // add light
+            // add light
             guard let env = try? await EnvironmentResource(named: "ImageBasedLight")
             else { return }
             

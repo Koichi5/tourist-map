@@ -63,6 +63,12 @@ struct MapView: View {
                     Text("検索")
                 }
             }
+            Button {
+                openWindow(id: ViewID.settingsView)
+            } label: {
+                Image(systemName: "gearshape")
+                Text("設定")
+            }
         }
         .onAppear {
             if (cityInfoDataModelList.isEmpty) {

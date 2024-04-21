@@ -13,6 +13,9 @@ class IndustryDataManager: ObservableObject {
     private let apiKey = ProcessInfo.processInfo.environment["RESAS_API_KEY"]!
 
     func fetchIndustryData(prefCode: Int) {
+        if(prefCode == -1) {
+            return
+        }
         let urlString = "https://opendata.resas-portal.go.jp/api/v1/industry/power/forIndustry?cityCode=-&year=2016&prefCode=\(prefCode)&sicCode=-"
         guard let url = URL(string: urlString) else { return }
         

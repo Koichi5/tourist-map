@@ -28,17 +28,19 @@ struct CityDetailView: View {
             case .basicInfo:
                 CityBasicInfoView(prefecture: cityInfoDataModel.prefecture)
             case .populationTrends:
-                CityPopulationTrendsView(populationTrendData: populationViewModel.populationTrendsLineData)
+                CityPopulationTrendsView(populationTrendData: populationViewModel.populationTrendsLineData, prefecture: cityInfoDataModel.prefecture)
             case .touristSpot:
                 CityTouristSpotsView(touristSpots: cityInfoDataModel.touristSpots)
             case .inductory:
-                IndustryDataView()
+                IndustryDataView(
+                    cityInfoDataModel: cityInfoDataModel, prefecture: cityInfoDataModel.prefecture
+                )
             case nil:
-                Text("何も表示されない")
+                Text("データの読み込みに失敗しました")
             }
         }
         .onAppear {
-            populationViewModel.fetchPopulationData(prefCode: 13) { result in
+            populationViewModel.fetchPopulationData(prefCode: cityInfoDataModel.prefecture?.code ?? -1) { result in
                 print(result ?? "")
             }
         }

@@ -49,7 +49,7 @@ struct CityBasicInfoView: View {
                     Text("人口密度：")
                 }
                 Spacer()
-                Text("\(prefecture?.population ?? 0 / (prefecture?.area ?? 0) ?? 0) 人 / k㎡")
+                Text("\(prefecture?.population ?? 0 / (prefecture?.area ?? 0) ) 人 / k㎡")
             }
             Spacer()
         }

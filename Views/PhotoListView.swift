@@ -22,7 +22,7 @@ struct PhotoListView: View {
                 }
             }
         .onAppear {
-            imageManager.fetchImages(placeId: touristSpot.placeId ?? "")
+            imageManager.fetchPhotoReferences(placeId: touristSpot.placeId ?? "")
         }
     }
 }

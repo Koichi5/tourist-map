@@ -21,45 +21,33 @@ struct CityView: View {
     @Environment(\.dismissWindow) private var dismissWindow
     @Environment(AppState.self) private var appState
     
-    var cityInfo: CityInfo? {
-        cities.first { $0.name.lowercased() == cityName.lowercased() }
-    }
-    
     var body: some View {
         NavigationStack(path: $path) {
             GeometryReader { geometry in
                 ZStack {
                     VStack {
-                        Text(cityInfoDataModel?.prefecture?.nameInKanji() ?? "都市の情報が見つかりません")
+                        Text(cityInfoDataModel?.prefecture?.kanji ?? "都市の情報が見つかりません")
                             .font(.extraLargeTitle)
                             .bold()
                             .padding(.bottom, 150)
                     }
                     .background {
-                            Image(cityInfoDataModel?.imageName ?? "")
-                                .resizable()
-                                .aspectRatio(contentMode: .fill)
-                                .frame(width: geometry.size.width, height: geometry.size.width * 2/3)
-                                .clipped()
+                        Image(cityInfoDataModel?.imageName ?? "")
+                            .resizable()
+                            .aspectRatio(contentMode: .fill)
+                            .frame(width: geometry.size.width, height: geometry.size.width * 2/3)
+                            .clipped()
                     }
                     HStack {
                         Spacer()
                         VStack {
-                            HStack {
-                                Button {
-                                    showNightImage.toggle()
-                                } label: {
-                                    Image(systemName: showNightImage ? "moon" : "sun.max")
-                                }
-                                .padding(.top)
-                                Button {
-                                    dismissWindow(id: ViewID.cityView)
-                                } label: {
-                                    Image(systemName: "xmark")
-                                }
-                                .padding(.top)
-                                .padding(.trailing)
+                            Button {
+                                dismissWindow(id: ViewID.cityView)
+                            } label: {
+                                Image(systemName: "xmark")
                             }
+                            .padding(.top)
+                            .padding(.trailing)
                             Spacer()
                         }
                     }

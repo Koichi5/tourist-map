@@ -7,19 +7,16 @@
 
 import Foundation
 
-// APIレスポンス全体を表す構造体
 struct PopulationResponse: Decodable {
     let message: String?
     let result: PopulationResult
 }
 
-// "result" キーの内容を表す構造体
 struct PopulationResult: Decodable {
     let boundaryYear: Int
     let data: [PopulationData]
 }
 
-// "data" キー内の個々のデータを表す構造体
 struct PopulationData: Decodable {
     let label: String
     let data: [YearlyData]

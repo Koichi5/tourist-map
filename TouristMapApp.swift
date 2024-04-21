@@ -41,6 +41,11 @@ struct TouristMapApp: App {
         }
         .defaultSize(CGSize(width: 600, height: 400))
         
+        WindowGroup(id: ViewID.settingsView) {
+            SettingsView()
+                .environment(appState)
+        }
+        
         WindowGroup(id: ViewID.lookAroundView, for: TouristSpotDataModel.self) { value in
             LookAroundView(touristSpot: value.wrappedValue!)
         }
@@ -58,5 +63,6 @@ struct ViewID {
     static let cityView = "CityViewId"
     static let touristMap = "TouristMapId"
     static let lookAroundView = "LookAroundViweId"
+    static let settingsView = "settingsViewId"
     static let immersive = "ImmersiveSpaceId"
 }
