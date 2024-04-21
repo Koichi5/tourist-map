@@ -77,8 +77,9 @@ extension AppState {
                     await self.setPositionForEntity(pinEntity, position: SIMD3<Float>(pin.locationX, 0.004, pin.locationZ))
                     await self.setImageBasedLightForEntity(entity: pinEntity, intensityExponent: 0.8)
                     await self.setPinsTappable(entity: pinEntity)
-                    print("pin.prefecture.rawValue: \(pin.prefecture.rawValue)")
-                    await self.setIdentifiableComponent(entity: pinEntity, id: pin.prefecture.rawValue, displayName: pin.prefecture.nameInKanji())
+                    print("pin.prefecture rawValue: \(pin.prefecture.rawValue)")
+                    print("pin prefecture kanji \(pin.prefecture.kanji)")
+                    await self.setIdentifiableComponent(entity: pinEntity, id: pin.prefecture.rawValue, displayName: pin.prefecture.kanji)
                     return LoadResult(entity: pinEntity, key: pin.prefecture.rawValue)
                 } catch {
                     fatalError("Attempter to load \(pin.prefecture.rawValue)")

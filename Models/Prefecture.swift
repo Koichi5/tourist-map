@@ -457,11 +457,6 @@ enum Prefecture: String, CaseIterable, Codable {
             228215
         }
     }
-
-
-    func nameInKanji() -> String {
-        return self.rawValue
-    }
 }
 
 extension Prefecture {
