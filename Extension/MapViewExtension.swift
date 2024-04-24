@@ -14,7 +14,7 @@ extension MapView {
         appState.phase.transition(to: .city)
         if let idComponent = value.entity.components[IdentifiableComponent.self] {
             print("Entity ID: \(idComponent.id)")
-            self.openWindow(id: ViewID.cityView, value: idComponent.id)
+            self.openWindow(id: ViewIDs.cityView, value: idComponent.id)
         }
     }
 }

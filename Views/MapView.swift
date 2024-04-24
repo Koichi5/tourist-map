@@ -65,7 +65,7 @@ struct MapView: View {
                     }
                 }
                 Button {
-                    openWindow(id: ViewID.settingsView)
+                    openWindow(id: ViewIDs.settingsView)
                 } label: {
                     HStack {
                         Image(systemName: "gearshape")

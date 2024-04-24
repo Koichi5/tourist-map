@@ -51,26 +51,11 @@ struct CityTouristSpotsView: View {
                     } else {
                         SpotThumbnailView(placeId: spot.placeId ?? "", adjustedWidth: adjustedWidth)
                     }
-//                    if let url = imageManager.makeImageUrl(photoReference: imageManager.photoReferences.first ?? "") {
-//                        AsyncImage(url: url) { image in
-//                            image
-//                                .resizable()
-//                                .scaledToFill()
-//                                .frame(width: adjustedWidth, height: adjustedWidth * 2/3)
-//                                .cornerRadius(20)
-//                                .clipped()
-//                        } placeholder: {
-//                            ProgressView()
-//                        }
-//                    }
                     Text(spot.name ?? "")
                         .lineLimit(1)
                         .padding()
                     Spacer()
                 }
-//                .onAppear {
-//                    imageManager.fetchPhotoReferences(placeId: spot.placeId ?? "")
-//                }
                 .padding(.bottom, 10)
                 .onTapGesture {
                     path.append(spot)

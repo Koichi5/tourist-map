@@ -9,6 +9,7 @@ import SwiftUI
 
 struct SettingsView: View {
     @State private var selectedSettingsMenu: SettingsMenu? = .privacyPolicy
+    @Environment(\.dismissWindow) private var dismissWindow
 
     var body: some View {
         NavigationSplitView {
@@ -20,8 +21,18 @@ struct SettingsView: View {
             switch selectedSettingsMenu {
             case .privacyPolicy:
                 PrivacyPolicyView()
+            case .termsOfService:
+                TermsOfServiceView()
             case nil:
                 Text("データの読み込みに失敗しました")
+            }
+        }
+        .ornament(attachmentAnchor: .scene(.bottom)) {
+            Button {
+                dismissWindow(id: ViewIDs.settingsView)
+            } label: {
+                Image(systemName: "xmark")
+                Text("閉じる")
             }
         }
     }
@@ -29,4 +40,5 @@ struct SettingsView: View {
 
 enum SettingsMenu: String, Hashable, CaseIterable {
     case privacyPolicy = "プライバシーポリシー"
+    case termsOfService = "利用規約"
 }

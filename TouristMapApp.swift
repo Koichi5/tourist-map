@@ -17,7 +17,7 @@ struct TouristMapApp: App {
     @State private var appState = AppState()
     @State private var immersionStyle: ImmersionStyle = .mixed
     var body: some Scene {
-        WindowGroup(id: ViewID.touristMap) {
+        WindowGroup(id: ViewIDs.touristMap) {
             ContentView()
                 .environment(appState)
                 .onChange(of: appState.phase.isImmersed) { _, showMRView in
@@ -34,26 +34,26 @@ struct TouristMapApp: App {
         .windowStyle(.plain)
         .windowResizability(.contentSize)
         
-        WindowGroup(id: ViewID.cityView, for: String.self) { value in
+        WindowGroup(id: ViewIDs.cityView, for: String.self) { value in
             CityView(cityName: value.wrappedValue!)
                 .environment(appState)
                 .modelContainer(for: [CityInfoDataModel.self, TouristSpotDataModel.self])
         }
         .defaultSize(CGSize(width: 600, height: 400))
         
-        WindowGroup(id: ViewID.settingsView) {
+        WindowGroup(id: ViewIDs.settingsView) {
             SettingsView()
                 .environment(appState)
         }
         
-        WindowGroup(id: ViewID.lookAroundView, for: TouristSpotDataModel.self) { value in
+        WindowGroup(id: ViewIDs.lookAroundView, for: TouristSpotDataModel.self) { value in
             LookAroundView(touristSpot: value.wrappedValue!)
         }
     }
 }
 
 
-struct ViewID {
+struct ViewIDs {
     static let cityView = "CityViewId"
     static let touristMap = "TouristMapId"
     static let lookAroundView = "LookAroundViweId"

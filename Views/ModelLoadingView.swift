@@ -30,7 +30,7 @@ struct ModelLoadingView: View {
             entity.components[ImageBasedLightComponent.self] = iblComponent
             entity.components.set(ImageBasedLightReceiverComponent(imageBasedLight: entity))
             
-//            // add animation
+            // add animation
             let animation = entity.availableAnimations[0]
             let player = entity.playAnimation(animation.repeat(), transitionDuration: 0.25, startsPaused: true)
             appState.animationPlayer = player

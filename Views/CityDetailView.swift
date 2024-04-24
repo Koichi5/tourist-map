@@ -43,7 +43,7 @@ struct CityDetailView: View {
         }
         .ornament(attachmentAnchor: .scene(.bottom)) {
             Button {
-                dismissWindow(id: ViewID.cityView)
+                dismissWindow(id: ViewIDs.cityView)
             } label: {
                 Image(systemName: "xmark")
                 Text("閉じる")

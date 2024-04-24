@@ -21,7 +21,7 @@ struct TouristSpotDetailView: View {
                 }
             }
             Button {
-                openWindow(id: ViewID.lookAroundView, value: touristSpot)
+                openWindow(id: ViewIDs.lookAroundView, value: touristSpot)
             } label: {
                 Image(systemName: "map")
             }
