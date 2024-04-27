@@ -13,7 +13,7 @@ extension MapView {
     public func onPinTap(value: EntityTargetValue<SpatialTapGesture.Value>) {
         appState.phase.transition(to: .city)
         if let idComponent = value.entity.components[IdentifiableComponent.self] {
-            print("Entity ID: \(idComponent.id)")
+            debugPrint("Entity ID: \(idComponent.id)")
             self.openWindow(id: ViewIDs.cityView, value: idComponent.id)
         }
     }

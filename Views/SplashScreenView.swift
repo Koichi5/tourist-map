@@ -13,11 +13,11 @@ struct SplashScreenView: View {
     
     var body: some View {
         VStack {
-            Text("Tourist Map")
+            Text("日本観光マップ")
                 .font(.extraLargeTitle2)
                 .fontWeight(.bold)
                 .padding(.vertical)
-            Text("Let't see japanese sightseeing spots")
+            Text("全国の観光地や特色をより身近に感じてみましょう！")
                 .font(.system(size: 18))
                 .fontWeight(.bold)
                 .padding(.bottom)

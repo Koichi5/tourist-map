@@ -2,6 +2,17 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>APIKeys</key>
+	<dict>
+		<key>GOOGLE_PLACE_API_KEY</key>
+		<string>${GOOGLE_PLACE_API_KEY}</string>
+		<key>AWS_ACCESS_KEY_ID</key>
+		<string>${AWS_ACCESS_KEY_ID}</string>
+		<key>AWS_SECRET_ACCESS_KEY</key>
+		<string>${AWS_SECRET_ACCESS_KEY}</string>
+		<key>RESAS_API_KEY</key>
+		<string>${RESAS_API_KEY}</string>
+	</dict>
 	<key>UIApplicationSceneManifest</key>
 	<dict>
 		<key>UIApplicationPreferredDefaultSceneSessionRole</key>

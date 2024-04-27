@@ -51,7 +51,7 @@ struct CityDetailView: View {
         }
         .onAppear {
             populationViewModel.fetchPopulationData(prefCode: cityInfoDataModel.prefecture?.code ?? -1) { result in
-                print(result ?? "")
+                debugPrint(result ?? "")
             }
         }
     }

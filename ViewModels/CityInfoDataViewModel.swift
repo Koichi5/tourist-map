@@ -19,7 +19,7 @@ class CityInfoDataViewModel: ObservableObject {
         do {
             try context.save()
         } catch {
-            print(error.localizedDescription)
+            debugPrint(error.localizedDescription)
         }
     }
     

@@ -105,7 +105,7 @@ enum Prefecture: String, CaseIterable, Codable {
         case .miyazaki: return "宮崎県"
         case .kagoshima: return "鹿児島県"
         case .okinawa: return "沖縄県"
-    }
+        }
     }
     
     var code: Int {

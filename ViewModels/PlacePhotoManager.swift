@@ -12,59 +12,67 @@ class PlacePhotoManager: ObservableObject {
     @Published var photoReferences: [String] = []
     @Published var landscapePhotoReferences: [String] = []
     var cancellables: Set<AnyCancellable> = []
-    private let apiKey = ProcessInfo.processInfo.environment["GOOGLE_PLACE_API_KEY"]
-
+    
     func fetchPhotoReferences(placeId: String) {
-        print("----- fetch images fired -----")
-        if let apiKey = apiKey {
-            let urlString = "https://maps.googleapis.com/maps/api/place/details/json?placeid=\(placeId)&fields=photos&key=\(apiKey)"
-            guard let url = URL(string: urlString) else {
-                print("Invalid URL")
-                return
-            }
-            URLSession.shared.dataTaskPublisher(for: url)
-                .map { $0.data }
-                .decode(type: PlaceDetailsResponse.self, decoder: JSONDecoder())
-                .map { response in
-                    return response.result.photos?.map { $0.photoReference } ?? []
-                }
-                .replaceError(with: [])
-                .receive(on: DispatchQueue.main)
-                .assign(to: \.photoReferences, on: self)
-                .store(in: &cancellables)
-        } else {
-            print("API Key is missing")
+        debugPrint("----- fetch images fired -----")
+        guard let googlePlacesKey = APIKeyManager.shared.apiKey(for: "GOOGLE_PLACE_API_KEY") else {
+            debugPrint("API Key not found")
+            return
         }
+        let urlString = "https://maps.googleapis.com/maps/api/place/details/json?placeid=\(placeId)&fields=photos&key=\(googlePlacesKey)"
+        guard let url = URL(string: urlString) else {
+            debugPrint("Invalid URL")
+            return
+        }
+        URLSession.shared.dataTaskPublisher(for: url)
+            .map { $0.data }
+            .decode(type: PlaceDetailsResponse.self, decoder: JSONDecoder())
+            .map { response in
+                return response.result.photos?.map { $0.photoReference } ?? []
+            }
+            .replaceError(with: [])
+            .receive(on: DispatchQueue.main)
+            .assign(to: \.photoReferences, on: self)
+            .store(in: &cancellables)
     }
     
     func fetchLandscapePhotoReferences(placeId: String) {
-        print("----- fetch landscape images fired -----")
-        if let apiKey = apiKey, let url = URL(string: "https://maps.googleapis.com/maps/api/place/details/json?placeid=\(placeId)&fields=photos&key=\(apiKey)") {
-            URLSession.shared.dataTaskPublisher(for: url)
-                .map { $0.data }
-                .decode(type: PlaceDetailsResponse.self, decoder: JSONDecoder())
-                .map { response in
-                    response.result.photos?.compactMap { photo -> String? in
-                        return (photo.width > photo.height) ? photo.photoReference : nil
-                    } ?? []
-                }
-                .replaceError(with: [])
-                .receive(on: DispatchQueue.main)
-                .assign(to: \.landscapePhotoReferences, on: self)
-                .store(in: &cancellables)
-        } else {
-            print("Invalid API key or URL")
+        debugPrint("----- fetch landscape images fired -----")
+        guard let googlePlacesKey = APIKeyManager.shared.apiKey(for: "GOOGLE_PLACE_API_KEY") else {
+            debugPrint("API Key not found")
+            return
         }
+        let urlString = "https://maps.googleapis.com/maps/api/place/details/json?placeid=\(placeId)&fields=photos&key=\(googlePlacesKey)"
+        guard let url = URL(string: urlString) else {
+            debugPrint("Invalid URL")
+            return
+        }
+        URLSession.shared.dataTaskPublisher(for: url)
+            .map { $0.data }
+            .decode(type: PlaceDetailsResponse.self, decoder: JSONDecoder())
+            .map { response in
+                response.result.photos?.compactMap { photo -> String? in
+                    return (photo.width > photo.height) ? photo.photoReference : nil
+                } ?? []
+            }
+            .replaceError(with: [])
+            .receive(on: DispatchQueue.main)
+            .assign(to: \.landscapePhotoReferences, on: self)
+            .store(in: &cancellables)
     }
-    
+        
     func fetchFirstPhotoReference(placeId: String, completion: @escaping (String?) -> Void) {
-        print("----- fetchFirstPhotoReference fired -----")
-        guard let apiKey = apiKey, let url = URL(string: "https://maps.googleapis.com/maps/api/place/details/json?placeid=\(placeId)&fields=photos&key=\(apiKey)") else {
-            print("Invalid URL")
+        debugPrint("----- fetchFirstPhotoReference fired -----")
+        guard let googlePlacesKey = APIKeyManager.shared.apiKey(for: "GOOGLE_PLACE_API_KEY") else {
+            debugPrint("API Key not found")
             completion(nil)
             return
         }
-
+        let urlString = "https://maps.googleapis.com/maps/api/place/details/json?placeid=\(placeId)&fields=photos&key=\(googlePlacesKey)"
+        guard let url = URL(string: urlString) else {
+            debugPrint("Invalid URL")
+            return
+        }
         URLSession.shared.dataTaskPublisher(for: url)
             .map { $0.data }
             .decode(type: PlaceDetailsResponse.self, decoder: JSONDecoder())
@@ -78,19 +86,24 @@ class PlacePhotoManager: ObservableObject {
     }
     
     func makeImageUrl(photoReference: String, maxWidth: Int = 1200) -> URL? {
-        print("----- make image url fired -----")
-        if (apiKey != nil) {
-            let urlString = "https://maps.googleapis.com/maps/api/place/photo?maxwidth=\(maxWidth)&photo_reference=\(photoReference)&key=\(apiKey!)"
-            return URL(string: urlString)
+        debugPrint("----- make image url fired -----")
+        guard let googlePlacesKey = APIKeyManager.shared.apiKey(for: "GOOGLE_PLACE_API_KEY") else {
+            debugPrint("API Key not found")
+            return nil
         }
-        return nil
+        let urlString = "https://maps.googleapis.com/maps/api/place/photo?maxwidth=\(maxWidth)&photo_reference=\(photoReference)&key=\(googlePlacesKey)"
+        guard let url = URL(string: urlString) else {
+            debugPrint("Invalid URL")
+            return nil
+        }
+        return url
     }
     
     func fetchImageUrlFromPlaceId(placeId: String, completion: @escaping (URL?) -> Void) {
-        print("----- fetchImageUrlFromPlaceId fired -----")
+        debugPrint("----- fetchImageUrlFromPlaceId fired -----")
         fetchFirstPhotoReference(placeId: placeId) { [weak self] photoReference in
             guard let photoReference = photoReference else {
-                print("No photo reference found.")
+                debugPrint("No photo reference found.")
                 completion(nil)
                 return
             }
